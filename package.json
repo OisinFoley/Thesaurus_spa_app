@@ -1,0 +1,25 @@
+{
+  "name": "thesaurus_web_api",
+  "version": "1.0.0",
+  "description": "An interactive thesaurus application where users can view the full contents of the thesaurus, synonyms for an individual word, or even contribute themselves.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "thesaurus",
+    "javascript",
+    "web",
+    "api",
+    "nodejs"
+  ],
+  "author": "Oisin Foley",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.11",
+    "morgan": "^1.8.2",
+    "node-uuid": "^1.4.8"
+  }
+}
