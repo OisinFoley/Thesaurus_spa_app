@@ -16,10 +16,6 @@ var appRoutes  = require('./app/routes/api')(router,app,uuid);
 //built in module
 var path 	   = require('path');
 
-//once core functionality setup, incorporate facebook login
-//var passport   = require('passport');
-//var social 	   = require('./app/passport/passport')(app, passport); //passing express functionality through app
-
 app.use(morgan('dev'));
 
 app.use(bodyParser.json()); 
@@ -46,12 +42,9 @@ mongoose.connect('mongodb://oisinfoley:p1nec0ne@ds127894.mlab.com:27894/oisinfol
 
 //All routes entered into the browser, will redirect to this base view
 app.get('*',function(req,res){
-	res.sendFile(path.join(__dirname + '/public/app/views/home.html' ));
+	res.sendFile(path.join(__dirname + '/public/app/views/index.html' ));
 })
 
-// server.listen(port, function(){	
-// 	console.log('running our server and the port is :  ' + port);
-// });
 app.listen(port, function(){	
 	console.log('running our server and the port is :  ' + port);
 });

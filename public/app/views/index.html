@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<base href="/"> <!-- routes.js explains necessity of setting a base -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="OisinFoley" content="">
+    <title>Thesaurus App</title>
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    
+
+      <!-- main angular files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+
+    
+
+      <!-- angular Config/routes -->
+    <script src="app/mainModule.js"></script>  
+    <script src="app/routes.js"></script> 
+
+    <!-- angular controllers -->
+    <script src="app/controllers/userCtrl.js"></script> 
+    <script src="app/controllers/mainCtrl.js"></script> 
+
+    </head>
+
+
+  
+  <body ng-app="appCore" ng-controller="mainCtrl as main" >  
+  
+
+
+  <nav  class="navbar navbar-inverse" role="navigation">    
+      	<div class="navbar-header">
+      		<button type="button" class="navbar-toggle">
+        		<span class="sr-only">Toggle navigation</span>
+        		<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+        		<span class="icon-bar"></span>
+      		</button>
+      		<a class="navbar-brand" href="#">Put a logo here</a>
+    	</div>
+
+
+      	<div class="container">             
+        	<div id="navbar" class="navbar-collapse collapse">
+        	
+          		<ul class="nav navbar-nav col-lg-12">
+          			<li class="col-lg-offset-1"></li>                    
+            		
+            		<li><a href="/login">Login</a></li>
+            		<li><a href="/register">Register</a></li>
+            		<li><a href="/">Logout</a></li>
+          		</ul>
+        	</div><!--/.nav-collapse -->
+      	</div>
+   </nav>
+
+    hello
+    <div class="container container-fluid" ng-view >
+    
+  	</div>
+
+  </body>
+</html>
