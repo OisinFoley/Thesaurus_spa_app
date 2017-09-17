@@ -23,10 +23,8 @@ module.exports = function(router){
 				if (err) { //check validation, then duplication, otherwise send the json response
 					if(err.errors != null ){
 						//res.json({	success:false, message:'username or email already exists'	});
-						if(err.errors.name) {
-							console.log(err.errors.name);
-							res.json({	success:false, message: err.errors.name.message	}); 	
-						} else if(err.errors.email) {						
+						if(err.errors.email) {
+							console.log(err.errors.email);
 							res.json({	success:false, message: err.errors.email.message	}); 	
 						} else if(err.errors.username) {						
 							res.json({	success:false, message: err.errors.username.message	}); 	
@@ -53,7 +51,7 @@ module.exports = function(router){
 
 
 
-	router.post('/users/login',function(req,res){
+	router.post('/user/login',function(req,res){
 	console.log("in path: /users/login");
 		//res.send('testing authenticate route');
 		User.findOne({ username: req.body.username}).select('username email uuid password').exec(function(err, user){
@@ -105,6 +103,10 @@ module.exports = function(router){
 			res.json({ success:false, message: 'no token provided'});
 		}
 
+	});
+
+	router.post('/user/info',function(req,res){		
+		res.send(req.decoded);
 	});
 
 	return router;
