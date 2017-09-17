@@ -1,20 +1,17 @@
-var express    = require('express');
-// var cors = require('cors')
-var app 	   = express();
+// Using const based on the runtime benefits mentioned in this answer:
+// https://stackoverflow.com/questions/21237105/const-in-javascript-when-to-use-it-and-is-it-necessary
+const express    = require('express');
+const app 	   = express();
 var port       = process.env.PORT || 8080;
 
 //returns coloured error codes in the console
-var morgan     = require('morgan');
-var mongoose   = require('mongoose');
-
-//should declare this in our API file
-var uuid = require('node-uuid');
-
-var bodyParser = require('body-parser'); //parses body into JSON
-var router 	   = express.Router();
-var appRoutes  = require('./app/routes/api')(router,app,uuid);
+const morgan     = require('morgan');
+const mongoose   = require('mongoose');
+const bodyParser = require('body-parser'); //parses body into JSON
+const router 	   = express.Router();
+const appRoutes  = require('./app/routes/api')(router,app);
 //built in module
-var path 	   = require('path');
+const path 	   = require('path');
 
 app.use(morgan('dev'));
 
@@ -29,7 +26,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api', appRoutes);
 
 
-//make AWS string instead
+//cloud vendor string
 // mongoose.connect('mongodb://oisinfoley:p1nec0ne@ds127894.mlab.com:27894/oisinfoleymongo', function(err){	
 
 mongoose.connect('mongodb://localhost:27017/', function(err){	

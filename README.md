@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.1.4
+#### README file 1.1.5
 
 
 To run:
@@ -20,6 +20,11 @@ I'm sure some will come later...
 ---
 
 Added in previous commits::
+
+(1.1.5)
+- Setup simple function to check for presence of token in browser(https://ibb.co/hP6AUQ)
+- Token will be removed if user navigates to /logout route 
+- Logout and Register conditionally displayed depending on login status
 
 (1.1.4)
 - Passwords being hashed before saving

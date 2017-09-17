@@ -1,5 +1,7 @@
 var User  		   = require('../models/user');
 var uuid = require('node-uuid');
+var jwt 	   	   = require('jsonwebtoken');
+var secret	       = 'myTokenSecret';
 
 
 module.exports = function(router){
@@ -73,15 +75,36 @@ module.exports = function(router){
 					res.json({ success:false, message: 'could not authenticate password'})
 				}
 				else {
-					//we're going to decrypt this token, then send it back to the '/me' path, using the middleware directly below
-					
-					res.json({ success:true, message: 'user authenticated', user:user });
-
-					// var token = jwt.sign({ id: user._id, uuid: user.uuid, username: user.username, email: user.email }, secret, { expiresIn: '1hr' });
-					// res.json({ success:true, message: 'user authenticated', token:token});
+					//we're going to decrypt this token, then send it back to the '/me' path, using the middleware declared below
+										
+					var token = jwt.sign({ uuid: user.uuid, username: user.username, email: user.email }, secret, { expiresIn: '1hr' });
+					res.json({ success:true, message: 'user authenticated', token:token});
 				}
 			}
 		});
+	});
+
+	router.use(function(req, res, next){
+		//can get token through 1) request, 2) url, or 3) headers
+		var token = req.body.token || req.body.query || req.headers['x-access-token'];
+
+		if(token) { //ie - if there's a token
+			// verify a token symmetric, secret defined at top of this module
+			jwt.verify(token, secret, function(err, decoded) {
+				//could arrive here if token has expired, as it'll still be detected in browser window..
+				if(err) { 
+					res.json({ success: false, message:'token invalid, an error occurred: ' + err	}); 
+				}
+				else{
+					req.decoded = decoded;
+					next(); //without this function call, the request cannot continue
+				}			  
+			});
+				
+		} else {
+			res.json({ success:false, message: 'no token provided'});
+		}
+
 	});
 
 	return router;

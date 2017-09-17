@@ -58,15 +58,23 @@
           		<ul class="nav navbar-nav col-lg-12">
           			<li class="col-lg-offset-1"></li>                    
             		
-            		<li><a href="/login">Login</a></li>
-            		<li><a href="/register">Register</a></li>
-            		<li><a href="/">Logout</a></li>
+            		<li><a href="/login" ng-show="!main.isLoggedIn">Login</a></li>
+            		<li><a href="/register" ng-show="!main.isLoggedIn">Register</a></li>
+            		<li><a href="/" ng-click="main.logout()" ng-show="main.isLoggedIn">Logout</a></li> 
+                <li><a href="/" >Home</a></li>
           		</ul>
         	</div><!--/.nav-collapse -->
       	</div>
    </nav>
 
-    hello
+    <div>
+      hello
+    </div>
+        
+    <button ng-click="main.checkAuthStatus()">
+      check login status
+    </button>
+
     <div class="container container-fluid" ng-view >
     
   	</div>

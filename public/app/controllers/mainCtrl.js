@@ -2,9 +2,23 @@ console.log('testing main Ctrl');
 
 angular.module('mainCtrl',['authServices'])
 
-.controller('mainCtrl',function($scope, Auth){
+.controller('mainCtrl',function($rootScope, $scope, Auth){
 
 	var app = this;
+
+	//Use this to check login status each time the view changes.
+	//Without this we would have to refresh the browser to check the user's login status
+	$rootScope.$on('$routeChangeStart', function() {
+		//calls the service upon view change
+		if(Auth.isLoggedIn()) {
+			console.log("STATUS: user is logged in");
+			app.isLoggedIn = true;
+			
+		}
+		else {
+			console.log("STATUS: user is NOT logged in");								
+		}		
+	});
 
 	this.loginUser = function(loginData){	
 		
@@ -19,5 +33,27 @@ angular.module('mainCtrl',['authServices'])
 			}
 		});
 	};
+
+
+	app.checkAuthStatus = function(){
+		if(Auth.isLoggedIn()) {
+			console.log("STATUS: user is logged in");
+			app.isLoggedIn = true;			
+		}
+		else {
+			console.log("STATUS: user is NOT logged in");								
+		}		
+	}
+
+
+		
+	
+
+	app.logout = function(){
+		console.log("In main.logout functions");								
+		Auth.logout();				
+	};
+
+
 	
 });
