@@ -2,7 +2,7 @@
 
 /* This module is injected into the body of our home.html file */
 
-angular.module('appCore',['appRoutes','userControllers','ngAnimate','mainCtrl'])
+angular.module('appCore',['appRoutes','userControllers','ngAnimate','mainCtrl','userServices'])
 
 .config(function(){
 	console.log('testing main app config');	

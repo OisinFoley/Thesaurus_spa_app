@@ -19,6 +19,9 @@ I'm sure some will come later...
 
 ---
 
+Added in previous commits (1.1.1) 
+- Setup userServices factory.
+
 Added in previous commits (1.1.0) 
 - Basic registration view.
 - Setup Main and User controllers as well as routing.
@@ -27,7 +30,3 @@ Added in previous commits (1.0.0)
 - Initialising app, serving basic index view
 
 ---
-
-Since last commit:
-
-- Initialising app, serving basic index view

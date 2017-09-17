@@ -1,9 +1,9 @@
 
-angular.module("userControllers",[])
+angular.module("userControllers", ['userServices'])
 
 
 
-.controller('registerCtrl', function($http, $location, $timeout){
+.controller('registerCtrl', function($http, $location, $timeout, User){
 
 	var app = this;
 	
