@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.1.3
+#### README file 1.1.4
 
 
 To run:
@@ -20,6 +20,14 @@ I'm sure some will come later...
 ---
 
 Added in previous commits::
+
+(1.1.4)
+- Passwords being hashed before saving
+- Login view added
+- Password entered on login view is hashed befor ebeing compared with stored password
+- Word Schema added
+- Synonym Schema added
+- Message relayed back to user onsuccess
 
 (1.1.3)
 - User can be registered to database

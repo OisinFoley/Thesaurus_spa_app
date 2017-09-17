@@ -1,1 +1,14 @@
-<h1>hey there im a login view</h1>
+<div class="page-header" > <h4 >User Login	</h4></div>
+
+	<form name="loginForm" ng-submit="main.loginUser(loginData);">	
+		<label >Username:</label>
+		<input class="form-control" type="text" name="username" placeholder="please enter a name" ng-model="main.loginData.username">
+		<br>
+		<label >Password:</label>
+		<input class="form-control" type="password" name="password" placeholder="please enter a password" ng-model="main.loginData.password">
+		<br>
+		<button class="btn btn-warning" type="submit">Login</button>
+		
+	</form>
+
+<br>

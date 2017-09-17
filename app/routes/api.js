@@ -7,7 +7,7 @@ module.exports = function(router){
 
 	router.post('/user/register', function(req, res){
 		console.log(JSON.stringify(req.body));
-		console.log("we've hit user/register");
+		console.log("in path: /users/register");
 
 		var user = new User();		
 		user.uuid = uuid.v4();
@@ -15,7 +15,7 @@ module.exports = function(router){
 		user.password = req.body.password;
 		user.email 	  = req.body.email;		
 		if(req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' || req.body.email == null || req.body.email == '' ) {			
-			res.json({	success:false, message:'ensure uname, pword and email were provided'	});
+			res.json({	success:false, message:'ensure uname, password and email were provided'	});
 		} else {
 			user.save(function(err){
 				if (err) { //check validation, then duplication, otherwise send the json response
@@ -47,16 +47,42 @@ module.exports = function(router){
 				}									
 			});
 		}	
-
-
-
-
-
-
-
-
-		//res.json({ success:true, message:'in user/register api route' });
 	})
+
+
+
+	router.post('/users/login',function(req,res){
+	console.log("in path: /users/login");
+		//res.send('testing authenticate route');
+		User.findOne({ username: req.body.username}).select('username email uuid password').exec(function(err, user){
+			if(err) throw err;
+			console.log("inside findOne clause");
+			console.log(JSON.stringify(user));
+
+			if(!user) { //if user does not exist
+				res.json({ success:false, message: 'Could not authenticate user'});
+			}
+			else if(user) {
+				if(req.body.password) { //if a value is provided
+					var validPassword = user.comparePassword(req.body.password);
+				}
+				else {
+					res.json({ success:false, message: 'no password provided'})
+				}
+				if(!validPassword) {
+					res.json({ success:false, message: 'could not authenticate password'})
+				}
+				else {
+					//we're going to decrypt this token, then send it back to the '/me' path, using the middleware directly below
+					
+					res.json({ success:true, message: 'user authenticated', user:user });
+
+					// var token = jwt.sign({ id: user._id, uuid: user.uuid, username: user.username, email: user.email }, secret, { expiresIn: '1hr' });
+					// res.json({ success:true, message: 'user authenticated', token:token});
+				}
+			}
+		});
+	});
 
 	return router;
 
