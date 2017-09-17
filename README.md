@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.1.0
+#### README file 1.1.2
 
 
 To run:
@@ -19,14 +19,19 @@ I'm sure some will come later...
 
 ---
 
-Added in previous commits (1.1.1) 
+Added in previous commits::
+
+(1.1.2) 
+- Added User schema and setup link to API from the client
+
+(1.1.1) 
 - Setup userServices factory.
 
-Added in previous commits (1.1.0) 
+(1.1.0) 
 - Basic registration view.
 - Setup Main and User controllers as well as routing.
 
-Added in previous commits (1.0.0) 
+(1.0.0) 
 - Initialising app, serving basic index view
 
 ---

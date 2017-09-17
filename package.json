@@ -16,9 +16,11 @@
   "author": "Oisin Foley",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "mongoose": "^4.11.11",
+    "mongoose-title-case": "0.0.4",
     "morgan": "^1.8.2",
     "node-uuid": "^1.4.8"
   }
