@@ -2,16 +2,18 @@ console.log('testing thesaurus Ctrl');
 
 angular.module('thesaurusController',['thesaurusServices'])
 
-.controller('thesaurusCtrl',function($rootScope, $scope, Word){
+.controller('thesaurusCtrl',function($scope, Word){
 
 	var app = this;
 
-	app.findWord = function(wordData,valid){
+	app.addSynonym = function(wordData,valid){
 		console.log("in the findWord function");
 
 		console.log(app.wordData);
 		if(valid){
-			Word.addSynonym(app.wordData).then(function(data){	
+			console.log("hello");			
+			console.log(app.wordData);
+			Word.addSynonym(app.wordData).then(function(data){					 
 				if(data.data.success){
 					//lost scope of 'this' in here, hence use of var app
 					app.loading = false;				
@@ -34,12 +36,16 @@ angular.module('thesaurusController',['thesaurusServices'])
 					app.errorMsg = data.data.message;
 				}
 			});						
+
 		} else {
 			//error message created due to wordForm.$valid's value in our thesaurus view
 			app.loading = false;
 			app.errorMsg = 'Please ensure form is filled out properly';
 		}
 	};
+
+
+
 
 	// app.addSynonym = function(wordData, valid){
 	// 	if(valid){

@@ -1,6 +1,6 @@
 angular.module("thesaurusServices",[])
 
-.factory("Word", function($http){
+.factory('Word', function($http){
 	var wordFactory = {};
 
 
@@ -11,7 +11,8 @@ angular.module("thesaurusServices",[])
 	};
 
 	wordFactory.addSynonym = function(synonymData){
-		$http.post('/api/addSynonym', synonymData);
+		//console.log('in thesaurusServices, data passed from Ctrl is :: %s',JSON.stringify(synonymData));
+		return $http.post('/api/word/addSynonym', synonymData);
 	};
 
 	wordFactory.findSynonym = function(synonymData){

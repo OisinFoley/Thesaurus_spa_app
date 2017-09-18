@@ -21,6 +21,11 @@ I'm sure some will come later...
 
 Added in previous commits::
 
+(1.1.8)
+- User redirected after successful login
+- Words can be added, synonyms effectively added
+- Added separator (colon :) to allow multiple consecutive synonym additions
+
 (1.1.7)
 - Thesaurus controller and factory setup
 - Thesaurus view setup with extensive validation carried out client-side

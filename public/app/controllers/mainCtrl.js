@@ -2,7 +2,7 @@ console.log('testing main Ctrl');
 
 angular.module('mainCtrl',['authServices'])
 
-.controller('mainCtrl',function($rootScope, $scope, Auth){
+.controller('mainCtrl',function($rootScope, $scope, Auth, $timeout, $location){
 
 	var app = this;
 
@@ -36,6 +36,10 @@ angular.module('mainCtrl',['authServices'])
 		Auth.login(app.loginData).then(function(data){
 			if(data.data.success) {
 				console.log("login successful, users details:: %s", data.data.message);
+				$timeout(function(){
+						//acts as simple redirect
+						$location.path('/thesaurus');
+					}, 2000);								
 			}
 			else{				
 				app.errorMsg = data.data.message;

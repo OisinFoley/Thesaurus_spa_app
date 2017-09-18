@@ -1,5 +1,8 @@
 var User  		   = require('../models/user');
-var uuid = require('node-uuid');
+var Word  		   = require('../models/word');
+var Synonym  	   = require('../models/synonym');
+
+var uuid 		   = require('node-uuid');
 var jwt 	   	   = require('jsonwebtoken');
 var secret	       = 'myTokenSecret';
 
@@ -82,8 +85,56 @@ module.exports = function(router){
 		});
 	});
 
+	router.post('/word/addSynonym',function(req,res){		
+		console.log("You made it to the /api/addSynonym route");		
+								
+
+		if(req.body.baseWord == null || req.body.baseWord == '' || req.body.synonym == null || req.body.synonym == '' ) {			
+			res.json({	success:false, message:'Ensure base word and at least 1 synonym is provided'	});
+		} else {
+				//allowed user to enter multiple values at once, improves experience
+				var individualSynonyms = req.body.synonym.split(':');
+				
+				individualSynonyms.forEach(function(synonym) {
+				    console.log(synonym);
+
+				    Word.update(								
+						{ "baseWord": req.body.baseWord },						
+						{  $push:  
+							{   synonyms: 
+								{   
+								$each:[{						
+										uuid : uuid.v4(),										
+										synonym:synonym,									
+									}]
+									
+								}   
+							}  
+						},{ upsert : true },
+						function(err, result) {
+						    if (err){
+						    	res.json({	success:false, message:'Error adding base word and synonym, try again or come back later.'	});
+						    	console.log("Error updating word and synonym document");
+						    }
+						    //using an else clause here will flag a multiple header error due to multiple json messages being returned
+						    /*
+						    else{						    	
+						    	res.json({	success:true, message:'Word and synonyms added!'	});
+						    	console.log("Update of Word document successful, check document list");
+						    }
+						    */			   
+						});	
+				    	//did each insert happen successfully?
+						if (!err){
+					    	res.json({	success:true, message:'Word and synonyms added!.'	});
+					    	console.log("Update of Word document successful, check document list");
+						}		
+				});			
+		}	
+	});
+
 	router.use(function(req, res, next){
-		//can get token through 1) request, 2) url, or 3) headers
+		//can get token through 1) request, 2) url, or 3) headers. we are sending through the req.header in this app
 		var token = req.body.token || req.body.query || req.headers['x-access-token'];
 
 		if(token) { //ie - if there's a token
@@ -112,10 +163,7 @@ module.exports = function(router){
 	});
 
 
-	router.post('/word/addSynonym',function(req,res){		
-		console.log("You made it to the addSynonym api route");
-		res.json({ success:true, message: 'you made it to addSynonym and back'});
-	});
+	
 	
 
 	return router;
