@@ -29,20 +29,27 @@ angular.module('mainCtrl',['authServices'])
 		}		
 	});
 
+
+
 	this.loginUser = function(loginData){	
 		
-		console.log('login form submitted');	
+		//console.log('login form submitted');	
 
 		Auth.login(app.loginData).then(function(data){
 			if(data.data.success) {
-				console.log("login successful, users details:: %s", data.data.message);
+				//console.log("login successful, users details:: %s", data.data.message);
+
+				//previous incorrect login error message removed
+				app.errorMsg = false;
 				app.successMsg = data.data.message + '....Redirecting....';	
-				/*
+				//emptying form				
+				app.loginData = null;
+				
 				$timeout(function(){
-						//acts as simple redirect
-						$location.path('/thesaurus');
-					}, 2000);								
-					*/
+					//acts as simple redirect
+					$location.path('/thesaurus');
+				}, 2000);								
+					
 			}
 			else{				
 				app.errorMsg = data.data.message;

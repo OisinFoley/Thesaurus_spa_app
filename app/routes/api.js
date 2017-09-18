@@ -94,14 +94,12 @@ module.exports = function(router){
 		} else {
 				//allowed user to enter multiple values at once, improves experience
 				var individualSynonyms = req.body.synonym.split(',');
+				
 				console.log(JSON.stringify(individualSynonyms));
-
-
-				//we could create a reusable prototype function to make checking the last array element a bit cleaner to read,
-				//but this is the only time we would use that function, so it didn't seem sensible to implement
-				//the user may have entered an empty string for the final value
-				if(individualSynonyms[individualSynonyms.length-1] === '') individualSynonyms.pop();
-
+				//if user tries to enter empty String, we will catch it here
+				//eg - [a,,,b,,c,,,,,d] becomes [a,b,c,d]
+				individualSynonyms = individualSynonyms.filter(Boolean);
+								
 				
 				individualSynonyms.forEach(function(synonym) {
 				    console.log(synonym);

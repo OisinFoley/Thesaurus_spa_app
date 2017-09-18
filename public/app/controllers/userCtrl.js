@@ -18,13 +18,16 @@ angular.module('userControllers', ['userServices'])
 					app.loading = false;				
 					
 					console.log(data.data.message);
+					
+					
 
-					 //app.successMsg = data.data.message;
-
-					//this is a test
+					app.errorMsg = false;
 					app.successMsg = data.data.message;
+					app.regData = null;
+					//this will not clear password values					
+					//console.log("pristine? :: %s", app.regForm.email.$pristine);
 
-					//just adding timeout for effect
+					//let's redirect user
 					/*
 					$timeout(function(){
 						//acts as simple redirect
@@ -50,6 +53,11 @@ angular.module('userControllers', ['userServices'])
 		app.checkingUsername = true; 
 
 		console.log("hit check username");
+		$timeout(function(){
+					//acts as simple redirect
+					app.checkingUsername = false; 			
+				}, 2000);								
+		
 		
 	}
 

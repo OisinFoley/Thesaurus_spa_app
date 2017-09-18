@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.1.9
+#### README file 1.2.0
 
 
 To run:
@@ -15,11 +15,16 @@ Requirements:
 ---
 
 Bugs:
-I'm sure some will come later...
+- When forms are successfully submited, their values are cleared. This is not the case with passwords on the register view, not sure why it's happening. (From 1.2.0)
 
 ---
 
 Added in previous commits::
+
+(1.2.0)
+- Forms cleared on successful login, register and thesaurus submit.
+- Now checking that no synonym value is an empty String, as a user may try to intentionally abuse system, rather than accidentally which is what we previously had in mind with checking last synonym value only.
+- Updated views so that any displayed error messages become hidden if the form values are changed and the submit returns a success message.
 
 (1.1.9)
 - Changed synonym separator from colon(:) to comma(,) to make entry keyboard-friendly on mobile device.

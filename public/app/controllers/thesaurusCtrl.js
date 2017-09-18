@@ -12,14 +12,15 @@ angular.module('thesaurusController',['thesaurusServices'])
 		console.log(app.wordData);
 		if(valid){
 			//trying to remove old server messages if user sends a second POST request but hasn't refreshed from the first
-			// app.successMsg = false;
-			// app.errorMsg = false;
-			console.log("hello");			
+			app.successMsg = false;
+			app.errorMsg = false;
+			
 			console.log(app.wordData);
 			Word.addSynonym(app.wordData).then(function(data){					 
 				if(data.data.success){
 					//lost scope of 'this' in here, hence use of var app
-					app.loading = false;				
+					app.loading = false;		
+					app.wordData = null;		
 					
 					console.log(data.data.message);
 
