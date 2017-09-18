@@ -11,6 +11,9 @@ angular.module('thesaurusController',['thesaurusServices'])
 
 		console.log(app.wordData);
 		if(valid){
+			//trying to remove old server messages if user sends a second POST request but hasn't refreshed from the first
+			// app.successMsg = false;
+			// app.errorMsg = false;
 			console.log("hello");			
 			console.log(app.wordData);
 			Word.addSynonym(app.wordData).then(function(data){					 
@@ -20,16 +23,7 @@ angular.module('thesaurusController',['thesaurusServices'])
 					
 					console.log(data.data.message);
 
-					 //app.successMsg = data.data.message;
-
-					//this is a test
-					app.errorMsg = data.data.message;
-
-					//just adding timeout for effect
-					// $timeout(function(){
-					// 	//acts as simple redirect
-					// 	$location.path('/login');
-					// }, 2000);								
+					app.successMsg = data.data.message;																	
 				}
 				else{
 					app.loading = false;
@@ -47,71 +41,42 @@ angular.module('thesaurusController',['thesaurusServices'])
 
 
 
-	// app.addSynonym = function(wordData, valid){
-	// 	if(valid){
-	// 		Word.addSynonym(app.wordData).then(function(data){	
-	// 			if(data.data.success){
-	// 				//lost scope of 'this' in here, hence use of var app
-	// 				app.loading = false;				
+
+	//no need for 'valid' like in app.addSynonym() as 'valid' is not initialised until ng-submit executes.
+	//the client will send undefined if the regex fails	which is why we check that wordData != undefined
+	app.findSynonym = function(wordData){
+
+		//console.log("testing function call from theaaurus view");
+		//console.log(app.wordData);		
+		
+		//our app will not break without this check for undefined, but it's good practice
+		if(app.wordData != undefined){		
+			//call our factory service
+			Word.findSynonym(app.wordData).then(function(data){	
+				if(data.data.success){
+
+					app.loading = false;				
 					
-	// 				console.log(data.data.message);
-
-	// 				 //app.successMsg = data.data.message;
-
-	// 				//this is a test
-	// 				app.errorMsg = data.data.message;
-
-	// 				//just adding timeout for effect
-	// 				// $timeout(function(){
-	// 				// 	//acts as simple redirect
-	// 				// 	$location.path('/login');
-	// 				// }, 2000);								
-	// 			}
-	// 			else{
-	// 				app.loading = false;
-	// 				app.errorMsg = data.data.message;
-	// 			}
-	// 		});						
-	// 	} else {
-	// 		//error message created due to wordForm.$valid's value in our thesaurus view
-	// 		app.loading = false;
-	// 		app.errorMsg = 'Please ensure form is filled out properly';
-	// 	}
-
-	// }
-
-	// app.findSynonym = function(wordData, valid){
-	// 	if(valid){
-	// 		Word.findSynonym(app.wordData).then(function(data){	
-	// 			if(data.data.success){
-	// 				//lost scope of 'this' in here, hence use of var app
-	// 				app.loading = false;				
+					//testing the value	that we return from server
+					console.log(JSON.stringify(data.data.word[0].synonyms));
+					 
+					//we are returned an array from the database, so even though we will usually get only one value,
+					//we must specifiy the zeroth index to access our synonyms
+					app.synonymMsg = data.data.message;
+					app.synonyms = data.data.word[0].synonyms;	
 					
-	// 				console.log(data.data.message);
-
-	// 				 //app.successMsg = data.data.message;
-
-	// 				//this is a test
-	// 				app.errorMsg = data.data.message;
-
-	// 				//just adding timeout for effect
-	// 				// $timeout(function(){
-	// 				// 	//acts as simple redirect
-	// 				// 	$location.path('/login');
-	// 				// }, 2000);								
-	// 			}
-	// 			else{
-	// 				app.loading = false;
-	// 				app.errorMsg = data.data.message;
-	// 			}
-	// 		});						
-	// 	} else {
-	// 		//error message created due to wordForm.$valid's value in our thesaurus view
-	// 		app.loading = false;
-	// 		app.errorMsg = 'Please ensure form is filled out properly';
-	// 	}
-
-	// }
+				}
+				else{
+					app.loading = false;
+					app.synonymMsg = data.data.message;
+				}
+			});						
+		} else {
+			//error message created due to wordForm.$valid's value in our thesaurus view
+			app.loading = false;
+			app.errorMsg = 'Please ensure form is filled out properly';
+		}
+	};
 
 
 

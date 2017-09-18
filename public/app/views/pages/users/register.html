@@ -89,21 +89,23 @@
 
 
 <br><br>
+<div class="show-hide-message" ng-show="register.successMsg">		
+	<div class="alert alert-success" style="color:#EC1A1A">					
+		<i class="fa fa-check-circle"></i>
+		Success Message: {{	register.successMsg }}
+	</div>
+</div>
 
+<div class="show-hide-message" ng-show="register.errorMsg">	
+	<div class="alert alert-danger">
+		<i class="fa fa-times-circle"></i>
+		Error Message: {{ register.errorMsg }}
+	</div>
+</div>
 
 <div class="jumbotron text-center" ng-show="register.loading">
 	<h3><span class="glyphicon glyphicon-refresh glyphicon-spin"></span></h3>		
 	<p>Loading....</p>
 </div>
 
-<div class="row show-hide-message" ng-show="register.successMsg">
-	<div class="alert alert-info" > 
-		<div style="color:#FF3333" >Success Message: {{	register.successMsg }}</div>
-	</div>
-</div>
-<br>
-<div class="row show-hide-message" ng-show="register.errorMsg">
-	<div class="alert alert-danger">
-		<div style="color:#0000cc"><u>Error Message: {{ register.errorMsg }}</u></div>
-	</div>
-</div>
+

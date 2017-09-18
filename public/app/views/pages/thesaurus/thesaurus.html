@@ -8,7 +8,7 @@
 		<label ng-class="{'formLabels':wordForm}">Base word:</label>
 
 		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
-		<input class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required>
+		<input class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-change="thesaurus.findSynonym()" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required>
 				
 		<p  ng-show="(!wordForm.baseWord.$pristine && wordForm.baseWord.$error.required) || (wordForm.$submitted && wordForm.baseWord.$error.required)" ng-class="{'errorMsg':wordForm}">Base word required
 		</p> 
@@ -32,7 +32,7 @@
 		<label ng-class="{'formLabels':wordForm}">Base word:</label>
 
 		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
-		<input class="form-control" type="text" name="synonym" placeholder="Separate multiples with colon ':'" ng-model="thesaurus.wordData.synonym" ng-pattern="/^(([\sa-zA-Z':&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkSynonym(wordData)" required>
+		<input class="form-control" type="text" name="synonym" placeholder="Separate multiples with a comma ' , '" ng-model="thesaurus.wordData.synonym" ng-pattern="/^(([\sa-zA-Z',&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkSynonym(wordData)" required>
 				
 		<p  ng-show="(!wordForm.synonym.$pristine && wordForm.synonym.$error.required) || (wordForm.$submitted && wordForm.synonym.$error.required)" ng-class="{'errorMsg':wordForm}">Synonym word required
 		</p> 
@@ -53,11 +53,42 @@
 	
 	<br>
 	<button class="btn btn-primary" type="submit">Add Synonyms</button>
+	<br/>
+
+	
+		
+	
+	
+
+	<div class="show-hide-message" ng-show="thesaurus.successMsg">
+
+		<!-- <div class="alert alert-success isa_success" style="color:#EC1A1A">			 -->
+		<div class="alert alert-success" style="color:#EC1A1A">					
+			<i class="fa fa-check-circle"></i>
+			Success Message: {{	thesaurus.successMsg }}
+		</div>
+	</div>
+	<br>
+	<!-- <div class="show-hide-message isa_success" ng-show="thesaurus.errorMsg"> -->
+	<div class="show-hide-message" ng-show="thesaurus.errorMsg">	
+		<div class="alert alert-danger " >
+			<i class="fa fa-times-circle"></i>
+			Error Message: {{ thesaurus.errorMsg }}
+		</div>
+	</div>
 </form>
-
-
-
-
+	<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+	<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+	<h5>Synonyms:</h5>
+	<p ng-show="thesaurus.synonymMsg"> 
+			{{ thesaurus.synonymMsg }} 
+	</p>
+	<p ng-show="thesaurus.synonymMsg"> 
+		<div ng-repeat="synonym in thesaurus.synonyms">
+			{{ synonym.synonym }} 
+		</div>
+			
+	</p>
 
 <br><br>
 

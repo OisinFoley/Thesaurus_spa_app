@@ -7,9 +7,10 @@ angular.module('userControllers', ['userServices'])
 	
 	app.regUser = function(regData, valid){
 		
-		console.log("we've hit regUser")
-		console.log(JSON.stringify(app.regData));			
-		
+		//console.log("we've hit register user in userCtrl")
+				
+		//toggles display of loading icon, visible on slow connection if browser's speed is throttled.
+		app.loading = true;				
 		if(valid){
 			User.registerUser(app.regData).then(function(data){	
 				if(data.data.success){
@@ -21,13 +22,15 @@ angular.module('userControllers', ['userServices'])
 					 //app.successMsg = data.data.message;
 
 					//this is a test
-					app.errorMsg = data.data.message;
+					app.successMsg = data.data.message;
 
 					//just adding timeout for effect
+					/*
 					$timeout(function(){
 						//acts as simple redirect
 						$location.path('/thesaurus');
 					}, 2000);								
+					*/
 				}
 				else{
 					app.loading = false;

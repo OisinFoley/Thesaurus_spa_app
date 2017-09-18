@@ -7,8 +7,25 @@
 		<label >Password:</label>
 		<input class="form-control" type="password" name="password" placeholder="please enter a password" ng-model="main.loginData.password">
 		<br>
-		<button class="btn btn-warning" type="submit">Login</button>
-		
+		<button class="btn btn-warning" type="submit">Login</button>		
 	</form>
+
+	<br/>
+
+	<div class="show-hide-message" ng-show="main.successMsg">		
+		<div class="alert alert-success" style="color:#EC1A1A">					
+			<i class="fa fa-check-circle"></i>
+			Success Message: {{	main.successMsg }}
+		</div>
+	</div>
+
+	<div class="show-hide-message" ng-show="main.errorMsg">	
+		<div class="alert alert-danger">
+			<i class="fa fa-times-circle"></i>
+			Error Message: {{ main.errorMsg }}
+		</div>
+	</div>
+
+	
 
 <br>

@@ -93,7 +93,15 @@ module.exports = function(router){
 			res.json({	success:false, message:'Ensure base word and at least 1 synonym is provided'	});
 		} else {
 				//allowed user to enter multiple values at once, improves experience
-				var individualSynonyms = req.body.synonym.split(':');
+				var individualSynonyms = req.body.synonym.split(',');
+				console.log(JSON.stringify(individualSynonyms));
+
+
+				//we could create a reusable prototype function to make checking the last array element a bit cleaner to read,
+				//but this is the only time we would use that function, so it didn't seem sensible to implement
+				//the user may have entered an empty string for the final value
+				if(individualSynonyms[individualSynonyms.length-1] === '') individualSynonyms.pop();
+
 				
 				individualSynonyms.forEach(function(synonym) {
 				    console.log(synonym);
@@ -106,8 +114,7 @@ module.exports = function(router){
 								$each:[{						
 										uuid : uuid.v4(),										
 										synonym:synonym,									
-									}]
-									
+									}]									
 								}   
 							}  
 						},{ upsert : true },
@@ -116,21 +123,41 @@ module.exports = function(router){
 						    	res.json({	success:false, message:'Error adding base word and synonym, try again or come back later.'	});
 						    	console.log("Error updating word and synonym document");
 						    }
-						    //using an else clause here will flag a multiple header error due to multiple json messages being returned
+						    //using an 'else' clause here will flag a "multiple header" error due to multiple json messages being returned
+						    //because of the forEach loop
 						    /*
 						    else{						    	
 						    	res.json({	success:true, message:'Word and synonyms added!'	});
 						    	console.log("Update of Word document successful, check document list");
 						    }
 						    */			   
-						});	
-				    	//did each insert happen successfully?
-						if (!err){
-					    	res.json({	success:true, message:'Word and synonyms added!.'	});
-					    	console.log("Update of Word document successful, check document list");
-						}		
-				});			
+						});					    	
+				});	//end of forEach()	
+				//did each insert happen successfully?						
+		    	res.json({	success:true, message:'Word and synonyms added!.'	});
+		    	console.log("Update of Word document successful, check document list");	
 		}	
+	});
+
+	router.post('/word/findSynonym', function(req,res){	
+		console.log("we've hit /word/findSynonym route, searching for words...");
+		
+		Word.find({ baseWord : req.body.baseWord }).select('uuid baseWord synonyms').exec(function(err, baseWords){
+			if(err) throw err;
+			
+			if(baseWords.length > 0) {
+
+				try{				
+					res.json({ success:true, message: "We found the following synonyms: ", word:baseWords});
+					console.log("Words found and should have been returned to client ...");
+				} catch(err){
+					res.json({ success:false, message: "No synonyms found: " });					
+					console.log("There was the following error : %s", err);
+				}
+			}
+			
+		});
+		
 	});
 
 	router.use(function(req, res, next){

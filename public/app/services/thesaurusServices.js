@@ -16,7 +16,8 @@ angular.module("thesaurusServices",[])
 	};
 
 	wordFactory.findSynonym = function(synonymData){
-		$http.post('/api/findSynonym', synonymData);
+		//console.log('in thesaurusServices, data passed from Ctrl is :: %s',JSON.stringify(synonymData));
+		return $http.post('/api/word/findSynonym', synonymData);
 	};
 
 	wordFactory.listWords = function(){

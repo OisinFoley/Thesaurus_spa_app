@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.1.8
+#### README file 1.1.9
 
 
 To run:
@@ -20,6 +20,14 @@ I'm sure some will come later...
 ---
 
 Added in previous commits::
+
+(1.1.9)
+- Changed synonym separator from colon(:) to comma(,) to make entry keyboard-friendly on mobile device.
+- The baseWord input's onchange(ng-change) is setup to query the database with each keypress.
+	If a match is found, a conditionally-displayed <p> element displays the returned synonyms.
+- Checking that final synonym(word after last comma in synonym input) isn't an empty String, and removing if so.
+- Success/Error message relayed to user after http POST on thesaurus, register and login view.
+
 
 (1.1.8)
 - User redirected after successful login

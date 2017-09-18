@@ -36,10 +36,13 @@ angular.module('mainCtrl',['authServices'])
 		Auth.login(app.loginData).then(function(data){
 			if(data.data.success) {
 				console.log("login successful, users details:: %s", data.data.message);
+				app.successMsg = data.data.message + '....Redirecting....';	
+				/*
 				$timeout(function(){
 						//acts as simple redirect
 						$location.path('/thesaurus');
 					}, 2000);								
+					*/
 			}
 			else{				
 				app.errorMsg = data.data.message;
