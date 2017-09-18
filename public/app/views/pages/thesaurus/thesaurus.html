@@ -1,0 +1,65 @@
+<div class="page-header"><h4 ng-class="{'formLabels':wordForm}"><em>Thesaurus - Main</em></h4></div>
+
+<form name="wordForm" ng-submit="thesaurus.addSynonym(wordData, wordForm.$valid);" novalidate>
+		
+	<br>
+	<!-- BASE WORD VALIDATION SETUP -->
+	<div ng-class="{ 'has-success':(wordForm.baseWord.$valid && !wordForm.baseWord.$pristine && !thesaurus.baseWordInvalid), 'has-error':(!wordForm.baseWord.$valid && !wordForm.baseWord.$pristine) || (!wordForm.baseWord.$valid && wordForm.$submitted) ||  thesaurus.baseWordInvalid }">
+		<label ng-class="{'formLabels':wordForm}">Base word:</label>
+
+		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
+		<input class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required>
+				
+		<p  ng-show="(!wordForm.baseWord.$pristine && wordForm.baseWord.$error.required) || (wordForm.$submitted && wordForm.baseWord.$error.required)" ng-class="{'errorMsg':wordForm}">Base word required
+		</p> 
+
+		<span class="glyphicon glyphicon-refresh glyphicon-spin" ng-show="thesaurus.checkingBaseWord"></span>		
+		
+		<p ng-class="{'serverMsg': wordForm}"  ng-show="thesaurus.baseWordMsg && !wordForm.baseWord.$error.required && wordForm.baseWord.$valid "> 
+		{{ thesaurus.baseWordMsg }} 
+		</p>
+
+
+		<ul ng-show="(!wordForm.baseWord.$pristine && wordForm.baseWord.$error.pattern) || (!wordForm.baseWord.$pristine && wordForm.baseWord.$error.minlength) || (!wordForm.baseWord.$pristine && wordForm.baseWord.$error.maxlength)" ng-class="{'errorMsg':wordForm}">
+			<li>Only letters, apostrophe and ampersand (&) allowed.</li>
+			<li>Must not have any special characters.</li>			
+			<li>Must be between 2 and 45 characters long.</li>
+		</ul>
+	</div>
+	<br>
+	<!-- SYNONYM WORD VALIDATION SETUP -->
+	<div ng-class="{ 'has-success':(wordForm.synonym.$valid && !wordForm.synonym.$pristine && !thesaurus.synonymInvalid), 'has-error':(!wordForm.synonym.$valid && !wordForm.synonym.$pristine) || (!wordForm.synonym.$valid && wordForm.$submitted) ||  thesaurus.synonymInvalid }">
+		<label ng-class="{'formLabels':wordForm}">Base word:</label>
+
+		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
+		<input class="form-control" type="text" name="synonym" placeholder="Separate multiples with colon ':'" ng-model="thesaurus.wordData.synonym" ng-pattern="/^(([\sa-zA-Z':&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkSynonym(wordData)" required>
+				
+		<p  ng-show="(!wordForm.synonym.$pristine && wordForm.synonym.$error.required) || (wordForm.$submitted && wordForm.synonym.$error.required)" ng-class="{'errorMsg':wordForm}">Synonym word required
+		</p> 
+
+		<span class="glyphicon glyphicon-refresh glyphicon-spin" ng-show="thesaurus.checkingSynonym"></span>		
+		
+		<p ng-class="{'serverMsg': wordForm}"  ng-show="thesaurus.synonymMsg && !wordForm.synonym.$error.required && wordForm.synonym.$valid "> 
+		{{ thesaurus.synonymMsg }} 
+		</p>
+
+
+		<ul ng-show="(!wordForm.synonym.$pristine && wordForm.synonym.$error.pattern) || (!wordForm.synonym.$pristine && wordForm.synonym.$error.minlength) || (!wordForm.synonym.$pristine && wordForm.synonym.$error.maxlength)" ng-class="{'errorMsg':wordForm}">
+			<li>Only letters, apostrophe, separator(:) and ampersand (&) allowed.</li>
+			<li>Must not have any special characters.</li>			
+			<li>Must be between 2 and 45 characters long.</li>
+		</ul>
+	</div>
+	
+	<br>
+	<button class="btn btn-primary" type="submit">Add Synonyms</button>
+</form>
+
+
+
+
+
+<br><br>
+
+
+

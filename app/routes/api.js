@@ -106,8 +106,17 @@ module.exports = function(router){
 	});
 
 	router.post('/user/info',function(req,res){		
+		//the app.use() function directly above this POST route provides req.decoded with our token details
+		//containing info about the user
 		res.send(req.decoded);
 	});
+
+
+	router.post('/word/addSynonym',function(req,res){		
+		console.log("You made it to the addSynonym api route");
+		res.json({ success:true, message: 'you made it to addSynonym and back'});
+	});
+	
 
 	return router;
 

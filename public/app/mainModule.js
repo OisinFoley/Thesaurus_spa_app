@@ -2,7 +2,7 @@
 
 /* This module is injected into the body of our index.html file */
 
-angular.module('appCore',['appRoutes','userControllers','ngAnimate','mainCtrl','userServices', 'authServices'])
+angular.module('appCore',['appRoutes','userControllers','ngAnimate','mainCtrl','userServices', 'authServices','thesaurusController','thesaurusServices'])
 
 .config(function($httpProvider){
 

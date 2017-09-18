@@ -26,7 +26,7 @@ angular.module("userControllers", ['userServices'])
 					//just adding timeout for effect
 					$timeout(function(){
 						//acts as simple redirect
-						$location.path('/login');
+						$location.path('/thesaurus');
 					}, 2000);								
 				}
 				else{

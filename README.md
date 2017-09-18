@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.1.6
+#### README file 1.1.7
 
 
 To run:
@@ -20,6 +20,10 @@ I'm sure some will come later...
 ---
 
 Added in previous commits::
+
+(1.1.7)
+- Thesaurus controller and factory setup
+- Thesaurus view setup with extensive validation carried out client-side
 
 (1.1.6)
 - mainCtrl has function getUserInfo(), which is available to different views throughout the app

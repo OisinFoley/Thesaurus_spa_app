@@ -16,6 +16,11 @@ var app = angular.module('appRoutes',['ngRoute'])
 	.when('/login', { 		
 		 templateUrl: 'app/views/pages/users/login.html',		
 	})		
+	.when('/thesaurus', { 
+		templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
+		controller: 'thesaurusCtrl',
+		controllerAs: 'thesaurus'
+	})
 	.otherwise({ redirectTo: '/' }) //handles unrecognised values
 
 	//when navigating routes, we normally need to start the path with '#/login' or '#/register'
