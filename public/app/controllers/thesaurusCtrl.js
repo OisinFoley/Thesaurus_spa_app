@@ -9,6 +9,8 @@ angular.module('thesaurusController',['thesaurusServices'])
 	app.addSynonym = function(wordData,valid){
 		console.log("in the findWord function");
 
+		// $scope.wordForm.$setPristine();
+
 		console.log(app.wordData);
 		if(valid){
 			//trying to remove old server messages if user sends a second POST request but hasn't refreshed from the first
@@ -16,14 +18,14 @@ angular.module('thesaurusController',['thesaurusServices'])
 			app.errorMsg = false;
 			
 			console.log(app.wordData);
-			Word.addSynonym(app.wordData).then(function(data){					 
+			Word.addSynonym(app.wordData).then(function(data, wordData){					 
 				if(data.data.success){
 					//lost scope of 'this' in here, hence use of var app
 					app.loading = false;		
 					app.wordData = null;		
 					
 					console.log(data.data.message);
-
+					
 					app.successMsg = data.data.message;																	
 				}
 				else{
@@ -57,19 +59,22 @@ angular.module('thesaurusController',['thesaurusServices'])
 				if(data.data.success){
 
 					app.loading = false;				
-					
-					//testing the value	that we return from server
-					console.log(JSON.stringify(data.data.word[0].synonyms));
-					 
-					//we are returned an array from the database, so even though we will usually get only one value,
+															
+					//we are returned an array from the database, so even though we will usually get only one index,
 					//we must specifiy the zeroth index to access our synonyms
+					console.log(JSON.stringify(data.data.word[0].synonyms));
+
 					app.synonymMsg = data.data.message;
+					app.reminderMsg = data.data.reminder;
+
 					app.synonyms = data.data.word[0].synonyms;	
 					
 				}
 				else{
 					app.loading = false;
+					app.synonyms = false;	
 					app.synonymMsg = data.data.message;
+
 				}
 			});						
 		} else {

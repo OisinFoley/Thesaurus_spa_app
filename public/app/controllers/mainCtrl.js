@@ -5,6 +5,7 @@ angular.module('mainCtrl',['authServices'])
 .controller('mainCtrl',function($rootScope, $scope, Auth, $timeout, $location){
 
 	var app = this;
+	$scope.isNavCollapsed = true;
 
 	//Use this to check login status each time the view changes.
 	//Without this we would have to refresh the browser to check the user's login status

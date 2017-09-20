@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.2.0
+#### README file 1.2.2
 
 
 To run:
@@ -15,11 +15,18 @@ Requirements:
 ---
 
 Bugs:
-- When forms are successfully submited, their values are cleared. This is not the case with passwords on the register view, not sure why it's happening. (From 1.2.0)
+- When forms are successfully submited, their values are cleared. This is not the case with passwords on the register view, not sure why it's happening. (From 1.2.0, fixed in 1.2.2)
+- Hamburger menu won't collapse on toggle. Puzzled as to why this is happening.
 
 ---
 
 Added in previous commits::
+
+(1.2.2)
+- Messages resized depending on screen(device) width
+- Fixed bug where passwords weren't clearing on successful register response.
+- Swapped $push with $addToSet inour Update() function in the /api/addSynonym route, preventing duplicate synonyms on our Word object's nested synonyms property.
+- Some slight styling and colouring
 
 (1.2.0)
 - Forms cleared on successful login, register and thesaurus submit.

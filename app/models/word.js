@@ -6,7 +6,7 @@ var Synonym    = require('../models/synonym').SynonymSchema;
 var WordSchema = new Schema({
 	uuid: { type:String, required:true },
 	baseWord: { type:String, required:true },    	
-  	synonyms: { type:[Synonym], required:true	}    	
+  	synonyms: { type:[Synonym], required:true, unique:true	}    	
   	// synonyms: { type:String, required:false	}    	  	
 });
 

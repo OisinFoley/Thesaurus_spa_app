@@ -1,14 +1,20 @@
 
 angular.module('userControllers', ['userServices'])
 
-.controller('registerCtrl', function($rootScope, $http, $location, $timeout, User){
+.controller('registerCtrl', function($rootScope, $scope, $http, $location, $timeout, User){
 
-	var app = this;
+	var app = this;	
 	
-	app.regUser = function(regData, valid){
+	app.regUser = function(regData, firstPassword, confirm, valid){
 		
+		
+		console.log("data is : %s", app.regData.email);
+		console.log(app.firstPassword);
+		console.log(app.confirm);
+		console.log(firstPassword);
+		console.log(confirm);
 		//console.log("we've hit register user in userCtrl")
-				
+		
 		//toggles display of loading icon, visible on slow connection if browser's speed is throttled.
 		app.loading = true;				
 		if(valid){
@@ -23,17 +29,31 @@ angular.module('userControllers', ['userServices'])
 
 					app.errorMsg = false;
 					app.successMsg = data.data.message;
+
 					app.regData = null;
+					
+					app.firstPassword = null;
+					app.confirm = null;
+
+					$scope.firstPassword = null;
+					$scope.confirm = null;
+
+					//this is the correct way to clear form, but isn't performing as hoped
+					// $scope.regForm.$setPristine();
+					// $scope.regForm.$setUntouched();			
+					
+
+
 					//this will not clear password values					
 					//console.log("pristine? :: %s", app.regForm.email.$pristine);
 
 					//let's redirect user
-					/*
+					
 					$timeout(function(){
 						//acts as simple redirect
-						$location.path('/thesaurus');
+						$location.path('/login');
 					}, 2000);								
-					*/
+					
 				}
 				else{
 					app.loading = false;

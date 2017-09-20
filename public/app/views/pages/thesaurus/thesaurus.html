@@ -9,6 +9,7 @@
 
 		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
 		<input class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-change="thesaurus.findSynonym()" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required>
+
 				
 		<p  ng-show="(!wordForm.baseWord.$pristine && wordForm.baseWord.$error.required) || (wordForm.$submitted && wordForm.baseWord.$error.required)" ng-class="{'errorMsg':wordForm}">Base word required
 		</p> 
@@ -39,8 +40,8 @@
 
 		<span class="glyphicon glyphicon-refresh glyphicon-spin" ng-show="thesaurus.checkingSynonym"></span>		
 		
-		<p ng-class="{'serverMsg': wordForm}"  ng-show="thesaurus.synonymMsg && !wordForm.synonym.$error.required && wordForm.synonym.$valid "> 
-		{{ thesaurus.synonymMsg }} 
+		<p ng-class="{'serverMsg': wordForm}"  ng-show="thesaurus.reminderMsg && !wordForm.baseWord.$error.required && wordForm.baseWord.$valid "> 
+		{{ thesaurus.reminderMsg }} 
 		</p>
 
 
@@ -51,35 +52,53 @@
 		</ul>
 	</div>
 	
-	<br>
-	<button class="btn btn-primary" type="submit">Add Synonyms</button>
+	<br><br>
+	
+	<button class="btn btn-primary col-xs-offset-4 col-xs-4 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4" type="submit">Add Synonyms</button>	
 	<br/>
 	<br/>
+	<br/>
+	<br/>	
 
-	
-		
-	
-	
+</form>
 
 	<div class="show-hide-message" ng-show="thesaurus.successMsg">
-
-		<!-- <div class="alert alert-success isa_success" style="color:#EC1A1A">			 -->
+	<br><br>		
 		<div class="alert alert-success" style="color:#EC1A1A">					
-			<i class="fa fa-check-circle"></i>
-			Success Message: {{	thesaurus.successMsg }}
+		<!-- The default error message is a bit too big on a mobile screen, so we have 2 separate sizes -->
+			<h4 class="hidden-sm hidden-xs"> 
+				<i class="fa fa-check-circle "></i>
+				Success Message: {{	thesaurus.successMsg }}
+			</h4>		
+			
+			<h6 class="hidden-md hidden-lg"> 
+				<i class="fa fa-check-circle "></i>
+				Success Message: {{	thesaurus.successMsg }}
+			</h6>
 		</div>
 	</div>
 	<br>
-	<!-- <div class="show-hide-message isa_success" ng-show="thesaurus.errorMsg"> -->
-	<div class="show-hide-message" ng-show="thesaurus.errorMsg">	
+	
+	<div class="show-hide-message" ng-show="thesaurus.errorMsg">
+	<br><br>	
 		<div class="alert alert-danger " >
-			<i class="fa fa-times-circle"></i>
-			Error Message: {{ thesaurus.errorMsg }}
+			<h4 class="hidden-sm hidden-xs"> 
+				<i class="fa fa-times-circle"></i>
+				Error Message: {{ thesaurus.errorMsg }}
+			</h4>
+		</div>
+
+		<div class="alert alert-danger hidden-md hidden-lg" >
+			<h6> 
+				<i class="fa fa-times-circle"></i>
+				Error Message: {{ thesaurus.errorMsg }}
+			</h6>
 		</div>
 	</div>
-</form>
+
 	<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
 	<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+
 	<h5>Synonyms:</h5>
 	<p ng-show="thesaurus.synonymMsg"> 
 			{{ thesaurus.synonymMsg }} 
