@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.2.2
+#### README file 1.2.3
 
 
 To run:
@@ -17,10 +17,17 @@ Requirements:
 Bugs:
 - When forms are successfully submited, their values are cleared. This is not the case with passwords on the register view, not sure why it's happening. (From 1.2.0, fixed in 1.2.2)
 - Hamburger menu won't collapse on toggle. Puzzled as to why this is happening.
+- Assigning Font-family in stylesheet won't render, thus we're setting the Font-family for the entire body from within our index page. It's clean, but inline styling is always discouraged(From 1.2.3)
 
 ---
 
 Added in previous commits::
+
+(1.2.3)
+- Added custom font, similar typography to an actual thesaurus.
+- Added logo to upper-left corner
+- Base word checked against inputting same value with capital letters, preventing duplicate base words entry.
+- All entries displayed and formatted correctly
 
 (1.2.2)
 - Messages resized depending on screen(device) width

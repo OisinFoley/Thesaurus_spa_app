@@ -8,7 +8,8 @@
     <meta name="OisinFoley" content="">
     <title>Thesaurus App</title>
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Old+Standard+TT" >
       
 
 
@@ -39,7 +40,7 @@
 
     </head>
   
-  <body ng-app="appCore" ng-controller="mainCtrl as main" style="background:#CAE4DB">  
+  <body ng-app="appCore" ng-controller="mainCtrl as main" ng-cloak style="background:#CAE4DB;font-family:Old Standard TT">  
   
     <nav  class="navbar navbar-inverse" role="navigation" style="background:#52658f">    
         <div class="navbar-header">
@@ -57,7 +58,10 @@
         	<div id="navbar" class="navbar-collapse collapse" uib-collapse="isNavCollapsed">
         	
           		<ul class="nav navbar-nav col-lg-12">
-          			<li class="col-lg-offset-1"></li>                    
+          			<li class=" col-xs-2 col-sm-4 col-md-4 col-lg-2">
+                  <!-- <img class="img-responsive col-sm-5 col-md-5 col-lg-6" src="https://www.emojibase.com/resources/img/emojis/apple/x1f1f8-1f1ea.png.pagespeed.ic.s0tVt-HfMW.png" title="I'm just an image, nothing special here.."></img> -->
+                  <img class="img-responsive col-sm-5 col-md-5 col-lg-6" src="app/assets/swedenEmoji.png" title="I'm just an image, nothing special here.."></img>
+                </li>                    
             		
             		<li><a href="/login" ng-show="!main.isLoggedIn">Login</a></li>
             		<li><a href="/register" ng-show="!main.isLoggedIn">Register</a></li>
@@ -72,9 +76,12 @@
      </nav>
 
 
-    <div class="container container-fluid" ng-view style="background:#CAE4DB">
+    <!-- <div class="container container-fluid" ng-view style="background:#CAE4DB;border: 1px solid white;
+    border-radius: 10px;margin: 25px 20px 75px;"> -->
+    <div class="container container-fluid" ng-view style="background:#CAE4DB;border: 1px solid white;
+    border-radius: 10px;margin: auto; width:95%">
     
   	</div>
-
+    <br>
   </body>
 </html>

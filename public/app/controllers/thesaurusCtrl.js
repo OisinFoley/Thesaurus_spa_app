@@ -1,4 +1,4 @@
-console.log('testing thesaurus Ctrl');
+// console.log('testing connection to thesaurus Ctrl');
 
 angular.module('thesaurusController',['thesaurusServices'])
 
@@ -7,13 +7,33 @@ angular.module('thesaurusController',['thesaurusServices'])
 	var app = this;
 
 	app.addSynonym = function(wordData,valid){
-		console.log("in the findWord function");
+		console.log("in the addSynonym function");
 
-		// $scope.wordForm.$setPristine();
 
+/*		
+		beginning to look into also adding each of the synonyms as a base word,
+		if I enter 2 synonyms for a 'Dog', I expect to be able to look up those syonyms and have the word 'Dog' returned
+
+		eg - base word -> synonym entered
+			 dog       -> canine, mutt
+		then automatically enter:
+			 canine    -> dog
+			 mutt      -> dog
+
+		var synonyms = app.wordData.synonym;
+		// console.log("synonyms is :: %s", synonyms);
+		synonyms = synonyms.split(",");
+		var entriesArr = [];
+		entriesArr.push({  });
+		synonyms.forEach(individualSynonym ,index){
+			entriesArr.push({   })
+		}
+*/
+		
+		app.loading = true;
 		console.log(app.wordData);
 		if(valid){
-			//trying to remove old server messages if user sends a second POST request but hasn't refreshed from the first
+			//trying to remove old server messages if user sends a second POST request but hasn't refreshed from the first POST
 			app.successMsg = false;
 			app.errorMsg = false;
 			
@@ -22,7 +42,10 @@ angular.module('thesaurusController',['thesaurusServices'])
 				if(data.data.success){
 					//lost scope of 'this' in here, hence use of var app
 					app.loading = false;		
-					app.wordData = null;		
+					app.wordData = null;	
+						//this is the correct way to clear form, but isn't performing as hoped
+						// $scope.regForm.$setPristine();
+						// $scope.regForm.$setUntouched();				
 					
 					console.log(data.data.message);
 					
@@ -48,9 +71,6 @@ angular.module('thesaurusController',['thesaurusServices'])
 	//no need for 'valid' like in app.addSynonym() as 'valid' is not initialised until ng-submit executes.
 	//the client will send undefined if the regex fails	which is why we check that wordData != undefined
 	app.findSynonym = function(wordData){
-
-		//console.log("testing function call from theaaurus view");
-		//console.log(app.wordData);		
 		
 		//our app will not break without this check for undefined, but it's good practice
 		if(app.wordData != undefined){		
@@ -87,36 +107,29 @@ angular.module('thesaurusController',['thesaurusServices'])
 
 
 
-	// app.listWords = function(){
-	// 	if(valid){
-	// 		Word.listWords().then(function(data){	
-	// 			if(data.data.success){
-	// 				//lost scope of 'this' in here, hence use of var app
-	// 				app.loading = false;				
+	app.loadAllWords = function(){
+			app.loading = true;				
+
+			Word.listWords().then(function(data){	
+				if(data.data.success){
+					//lost scope of 'this' in here, hence use of var app
+					app.loading = false;				
 					
-	// 				console.log(data.data.message);
+					console.log("the response is :: %s",JSON.stringify(data.data.words));
+					
+					app.wordsList = data.data.words;
 
-	// 				 //app.successMsg = data.data.message;
 
-	// 				//this is a test
-	// 				app.errorMsg = data.data.message;
+					//app.successMsg = data.data.message;
+					
+					// app.errorMsg = data.data.message;
 
-	// 			}
-	// 			else{
-	// 				app.loading = false;
-	// 				app.errorMsg = data.data.message;
-	// 			}
-	// 		});						
-	// 	} else {
-	// 		//error message created due to wordForm.$valid's value in our thesaurus view
-	// 		app.loading = false;
-	// 		app.errorMsg = 'There was a problem from the user side, please try again';
-	// 	}
-
-	// }
+				}
+				else{
+					app.loading = false;
+					// app.errorMsg = data.data.message;
+				}
+			});								
+	}
 	
-
-	
-
-
 });

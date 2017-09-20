@@ -1,4 +1,30 @@
-<div class="page-header"><h4 ng-class="{'formLabels':wordForm}"><em>Thesaurus - Main</em></h4></div>
+<div class="page-header">
+
+	<h4 class="hidden-xs hidden-sm" ng-class="{'formLabels':wordForm}"><em>Thesaurus - Main</em></h4>
+	<h5 class="hidden-md hidden-lg" ng-class="{'formLabels':wordForm}"><em><b>Thesaurus - Main</b></em></h5>
+</div>
+
+<label>
+<h4 class="hidden-sm hidden-xs">
+	To get started: <br><br>
+	- Type a base word in the first textbox, if it matches a word in our database, you will see a list of synonyms below.
+	<br><br>
+	- With the base word still entered in the first textbox, use the second textbox to add synonyms for that particular base word.
+	<br><br>
+	- Simple!
+</h4>
+<h6 class="hidden-md hidden-lg">
+	<b>
+		To get started: <br><br>
+		- Type a base word in the first textbox, if it matches a word in our database, you will see a list of synonyms below.<br><br>
+		- With the base word still entered in the first textbox, use the second textbox to add synonyms for that particular base word.
+		<br><br>
+		- Simple!
+	</b>
+</h6>
+</label>
+
+
 
 <form name="wordForm" ng-submit="thesaurus.addSynonym(wordData, wordForm.$valid);" novalidate>
 		
@@ -54,26 +80,26 @@
 	
 	<br><br>
 	
-	<button class="btn btn-primary col-xs-offset-4 col-xs-4 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4" type="submit">Add Synonyms</button>	
+	<button class="btn btn-primary col-xs-offset-4 col-xs-5 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4" type="submit">Add Synonyms</button>	
 	<br/>
 	<br/>
 	<br/>
 	<br/>	
 
 </form>
-
+<div>
 	<div class="show-hide-message" ng-show="thesaurus.successMsg">
 	<br><br>		
 		<div class="alert alert-success" style="color:#EC1A1A">					
 		<!-- The default error message is a bit too big on a mobile screen, so we have 2 separate sizes -->
 			<h4 class="hidden-sm hidden-xs"> 
 				<i class="fa fa-check-circle "></i>
-				Success Message: {{	thesaurus.successMsg }}
+				<label> Success Message: {{	thesaurus.successMsg }} </label>
 			</h4>		
 			
 			<h6 class="hidden-md hidden-lg"> 
 				<i class="fa fa-check-circle "></i>
-				Success Message: {{	thesaurus.successMsg }}
+				<label> Message: {{	thesaurus.successMsg }} </label>
 			</h6>
 		</div>
 	</div>
@@ -84,14 +110,12 @@
 		<div class="alert alert-danger " >
 			<h4 class="hidden-sm hidden-xs"> 
 				<i class="fa fa-times-circle"></i>
-				Error Message: {{ thesaurus.errorMsg }}
+				<label> Error Message: {{ thesaurus.errorMsg }} </label>
 			</h4>
-		</div>
-
-		<div class="alert alert-danger hidden-md hidden-lg" >
-			<h6> 
+				
+			<h6 class="hidden-md hidden-lg"> 
 				<i class="fa fa-times-circle"></i>
-				Error Message: {{ thesaurus.errorMsg }}
+				<label> Message: {{ thesaurus.errorMsg }} </label>
 			</h6>
 		</div>
 	</div>
@@ -109,6 +133,24 @@
 		</div>
 			
 	</p>
+</div>
+<br><br><br><hr>
+<h5>List of all words in thesaurus:</h5>
+<div ng-init="thesaurus.loadAllWords()">
+	<div ng-repeat="word in thesaurus.wordsList">
+		<label> 
+			{{word.baseWord}}:
+		</label>
+			<!-- <div ng-repeat="synonym in word.synonyms">
+				{{synonym.synonym}}		
+			</div> -->
+			<label ng-repeat="synonym in word.synonyms">
+				&nbsp{{synonym.synonym}}	|	
+			</label>
+		
+	</div>
+</div>
+
 
 <br><br>
 

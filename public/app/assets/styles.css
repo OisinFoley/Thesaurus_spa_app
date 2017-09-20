@@ -12,6 +12,21 @@ a {
 
 /*having trouble getting the above values to render, even though they're correct*/
 
+
+@font-face {
+
+    font-family: "Old Standard TT";
+    src: url("https://fonts.googleapis.com/css?family=Old+Standard+TT");
+}
+
+/* also having trouble getting this font to render */
+h1, h2, h3, h4, h5, h6, p, label, div, {
+        font-family: "Old Standard TT", serif;
+}
+
+
+
+
 .serverMsg{
   background:yellow;
 }

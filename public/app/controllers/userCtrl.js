@@ -1,3 +1,4 @@
+// console.log('testing connection to user Ctrl');
 
 angular.module('userControllers', ['userServices'])
 
@@ -8,47 +9,33 @@ angular.module('userControllers', ['userServices'])
 	app.regUser = function(regData, firstPassword, confirm, valid){
 		
 		
-		console.log("data is : %s", app.regData.email);
-		console.log(app.firstPassword);
-		console.log(app.confirm);
+		console.log("data is : %s", app.regData.email);		
 		console.log(firstPassword);
 		console.log(confirm);
-		//console.log("we've hit register user in userCtrl")
+		//console.log("Inside register function in userCtrl")
 		
 		//toggles display of loading icon, visible on slow connection if browser's speed is throttled.
 		app.loading = true;				
 		if(valid){
 			User.registerUser(app.regData).then(function(data){	
 				if(data.data.success){
-					//lost scope of 'this' in here, hence use of var app
+					//lost scope of the controller's 'this' key inside of this function, hence use of var app
 					app.loading = false;				
 					
-					console.log(data.data.message);
-					
-					
-
+					//if user performed incorrect registration, but hasn't reloaded the view, then remove old error message														
 					app.errorMsg = false;
 					app.successMsg = data.data.message;
 
 					app.regData = null;
-					
-					app.firstPassword = null;
-					app.confirm = null;
-
+					//passwords under different model name due to use inside custom directive for comparing	each other
 					$scope.firstPassword = null;
 					$scope.confirm = null;
 
-					//this is the correct way to clear form, but isn't performing as hoped
-					// $scope.regForm.$setPristine();
-					// $scope.regForm.$setUntouched();			
+						//this is the correct way to clear form, but isn't performing as hoped
+						// $scope.regForm.$setPristine();
+						// $scope.regForm.$setUntouched();			
 					
-
-
-					//this will not clear password values					
-					//console.log("pristine? :: %s", app.regForm.email.$pristine);
-
-					//let's redirect user
-					
+					//user doesn't need to stay here after successful registration, so redirect them			
 					$timeout(function(){
 						//acts as simple redirect
 						$location.path('/login');
@@ -76,7 +63,7 @@ angular.module('userControllers', ['userServices'])
 		$timeout(function(){
 					//acts as simple redirect
 					app.checkingUsername = false; 			
-				}, 2000);								
+				}, 1000);								
 		
 		
 	}
@@ -85,6 +72,11 @@ angular.module('userControllers', ['userServices'])
 
 		
 		app.checkingEmail = true; 
+
+		$timeout(function(){
+					//acts as simple redirect
+					app.checkingUsername = false; 			
+				}, 1000);								
 
 		console.log("hit check email");
 		

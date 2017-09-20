@@ -1,17 +1,17 @@
-var User  		   = require('../models/user');
-var Word  		   = require('../models/word');
-var Synonym  	   = require('../models/synonym');
+const User  		   = require('../models/user');
+const Word  		   = require('../models/word');
+const Synonym  	   = require('../models/synonym');
 
-var uuid 		   = require('node-uuid');
-var jwt 	   	   = require('jsonwebtoken');
-var secret	       = 'myTokenSecret';
+const uuid 		   = require('node-uuid');
+const jwt 	   	   = require('jsonwebtoken');
+const secret	       = 'myTokenSecret';
 
 
 module.exports = function(router){
 
 
 	router.post('/user/register', function(req, res){
-		console.log(JSON.stringify(req.body));
+		//console.log(JSON.stringify(req.body));
 		console.log("in path: /users/register");
 
 		var user = new User();		
@@ -20,7 +20,7 @@ module.exports = function(router){
 		user.password = req.body.password;
 		user.email 	  = req.body.email;		
 		if(req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' || req.body.email == null || req.body.email == '' ) {			
-			res.json({	success:false, message:'ensure uname, password and email were provided'	});
+			res.json({	success:false, message:'Ensure username, password and email were provided'	});
 		} else {
 			user.save(function(err){
 				if (err) { //check validation, then duplication, otherwise send the json response
@@ -70,16 +70,16 @@ module.exports = function(router){
 					var validPassword = user.comparePassword(req.body.password);
 				}
 				else {
-					res.json({ success:false, message: 'no password provided'})
+					res.json({ success:false, message: 'No password provided'})
 				}
 				if(!validPassword) {
-					res.json({ success:false, message: 'could not authenticate password'})
+					res.json({ success:false, message: 'Could not authenticate password'})
 				}
 				else {
 					//we're going to decrypt this token, then send it back to the '/me' path, using the middleware declared below
 										
 					var token = jwt.sign({ uuid: user.uuid, username: user.username, email: user.email }, secret, { expiresIn: '1hr' });
-					res.json({ success:true, message: 'user authenticated', token:token});
+					res.json({ success:true, message: 'User authenticated', token:token});
 				}
 			}
 		});
@@ -150,6 +150,30 @@ module.exports = function(router){
 		
 	});
 
+	router.post('/word/listWords', function(req,res){	
+		console.log("we've hit /word/listWords route, searching for words...");
+		
+		Word.find({  }).select(' baseWord synonyms').exec(function(err, words){
+			if(err) throw err;
+			
+			if(words.length > 0) {
+
+				try{				
+					res.json({ success:true, message: "We found the following list of words: ", words:words});
+					console.log("Words found and should have been returned to client ...");
+				} catch(err){
+					res.json({ success:false, message: "No words found: " });					
+					console.log("There was the following error : %s", err);
+				}
+			}
+			else {
+				res.json({ success:false, message: "No words found: " });					
+			}
+			
+		});
+		
+	});
+
 	router.use(function(req, res, next){
 		//can get token through 1) request, 2) url, or 3) headers. we are sending through the req.header in this app
 		var token = req.body.token || req.body.query || req.headers['x-access-token'];
@@ -159,7 +183,7 @@ module.exports = function(router){
 			jwt.verify(token, secret, function(err, decoded) {
 				//could arrive here if token has expired, as it'll still be detected in browser window..
 				if(err) { 
-					res.json({ success: false, message:'token invalid, an error occurred: ' + err	}); 
+					res.json({ success: false, message:'Token invalid, an error occurred: ' + err	}); 
 				}
 				else{
 					req.decoded = decoded;
@@ -168,7 +192,7 @@ module.exports = function(router){
 			});
 				
 		} else {
-			res.json({ success:false, message: 'no token provided'});
+			res.json({ success:false, message: 'No token provided'});
 		}
 
 	});

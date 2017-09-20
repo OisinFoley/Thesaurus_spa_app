@@ -1,4 +1,4 @@
-console.log('testing main Ctrl');
+// console.log('testing connection to main Ctrl');
 
 angular.module('mainCtrl',['authServices'])
 
@@ -35,17 +35,23 @@ angular.module('mainCtrl',['authServices'])
 	this.loginUser = function(loginData){	
 		
 		//console.log('login form submitted');	
-
+		app.loading = true;
 		Auth.login(app.loginData).then(function(data){
 			if(data.data.success) {
-				//console.log("login successful, users details:: %s", data.data.message);
-
-				//previous incorrect login error message removed
+				app.loading = false;
+				
+				//previously set incorrect login message removed
 				app.errorMsg = false;
+				//new successful login message set
 				app.successMsg = data.data.message + '....Redirecting....';	
 				//emptying form				
 				app.loginData = null;
+
+					//this is the correct way to clear form, but isn't performing as hoped
+					// $scope.regForm.$setPristine();
+					// $scope.regForm.$setUntouched();			
 				
+				//user doesn't need to stay here after successful login, so redirect them
 				$timeout(function(){
 					//acts as simple redirect
 					$location.path('/thesaurus');
@@ -53,6 +59,7 @@ angular.module('mainCtrl',['authServices'])
 					
 			}
 			else{				
+				app.loading = false;
 				app.errorMsg = data.data.message;
 			}
 		});
