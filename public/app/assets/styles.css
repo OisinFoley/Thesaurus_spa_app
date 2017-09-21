@@ -13,16 +13,44 @@ a {
 /*having trouble getting the above values to render, even though they're correct*/
 
 
-@font-face {
+/*@font-face {
 
     font-family: "Old Standard TT";
     src: url("https://fonts.googleapis.com/css?family=Old+Standard+TT");
-}
+}*/
 
 /* also having trouble getting this font to render */
-h1, h2, h3, h4, h5, h6, p, label, div, {
+/*h1, h2, h3, h4, h5, h6, p, label, div, {
         font-family: "Old Standard TT", serif;
+}*/
+
+/*li a {
+  color:"yellow";
+}*/
+
+
+
+/*styling of icon inside base word template - again, not rendering*/
+/*
+.inner-addon {
+  position: relative;
 }
+
+
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+*/
 
 
 
@@ -31,19 +59,11 @@ h1, h2, h3, h4, h5, h6, p, label, div, {
   background:yellow;
 }
 
-@media screen and (max-width: 480px) {
-    body {
-        background-color: lightgreen;
-        font-size:1.1em;
-    }
-}
 
 
 .row {
   margin-top: 60px;
 }
-
-
 
 
 /*//works on multiple browsers */

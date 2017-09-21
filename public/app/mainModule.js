@@ -2,11 +2,10 @@
 
 /* This module is injected into the body of our index.html file */
 
-angular.module('appCore',['appRoutes','userControllers','ngAnimate','mainCtrl','userServices', 'authServices','thesaurusController','thesaurusServices'])
+angular.module('appCore',['appRoutes','userControllers','ngAnimate','ui.bootstrap','mainCtrl','userServices', 'authServices','thesaurusController','thesaurusServices'])
 
 .config(function($httpProvider){
 
-	console.log('testing mainModule.js module');	
+	// console.log('testing connection to mainModule.js module');
 	$httpProvider.interceptors.push('AuthInterceptors');
 });
-

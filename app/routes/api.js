@@ -150,7 +150,7 @@ module.exports = function(router){
 		
 	});
 
-	router.post('/word/listWords', function(req,res){	
+	router.get('/word/listWords', function(req,res){	
 		console.log("we've hit /word/listWords route, searching for words...");
 		
 		Word.find({  }).select(' baseWord synonyms').exec(function(err, words){

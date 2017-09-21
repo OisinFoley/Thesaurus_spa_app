@@ -4,47 +4,47 @@
   	<base href="/"> <!-- routes.js explains necessity of setting a base -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="OisinFoley" content="">
     <title>Thesaurus App</title>
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Old+Standard+TT" >
-      
 
 
-  
+
+
       <!-- main angular files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
 
-        
 
       <!-- angular Config/routes -->
-    <script src="app/mainModule.js"></script>  
-    <script src="app/routes.js"></script> 
+    <script src="app/mainModule.js"></script>
+    <script src="app/routes.js"></script>
 
     <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 
     <!-- angular controllers -->
-    <script src="app/controllers/userCtrl.js"></script> 
-    <script src="app/controllers/mainCtrl.js"></script> 
-    <script src="app/controllers/thesaurusCtrl.js"></script> 
+    <script src="app/controllers/userCtrl.js"></script>
+    <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/thesaurusCtrl.js"></script>
 
     <!-- angular services-->
-    <script src="app/services/userServices.js"></script> 
-    <script src="app/services/authServices.js"></script> 
-    <script src="app/services/thesaurusServices.js"></script> 
+    <script src="app/services/userServices.js"></script>
+    <script src="app/services/authServices.js"></script>
+    <script src="app/services/thesaurusServices.js"></script>
 
     </head>
-  
-  <body ng-app="appCore" ng-controller="mainCtrl as main" ng-cloak style="background:#CAE4DB;font-family:Old Standard TT">  
-  
-    <nav  class="navbar navbar-inverse" role="navigation" style="background:#52658f">    
+
+  <body ng-app="appCore" ng-controller="mainCtrl as main" ng-cloak style="background:#CAE4DB;font-family:Old Standard TT">
+
+    <nav  class="navbar navbar-inverse" role="navigation" style="background:#52658f">
         <div class="navbar-header">
         		<button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+            <!-- <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed"> -->
           		<span class="sr-only">Toggle navigation</span>
           		<span class="icon-bar"></span>
           		<span class="icon-bar"></span>
@@ -54,21 +54,22 @@
       	</div>
 
 
-      	<div class="container">             
-        	<div id="navbar" class="navbar-collapse collapse" uib-collapse="isNavCollapsed">
-        	
-          		<ul class="nav navbar-nav col-lg-12">
-          			<li class=" col-xs-2 col-sm-4 col-md-4 col-lg-2">
-                  <!-- <img class="img-responsive col-sm-5 col-md-5 col-lg-6" src="https://www.emojibase.com/resources/img/emojis/apple/x1f1f8-1f1ea.png.pagespeed.ic.s0tVt-HfMW.png" title="I'm just an image, nothing special here.."></img> -->
-                  <img class="img-responsive col-sm-5 col-md-5 col-lg-6" src="app/assets/swedenEmoji.png" title="I'm just an image, nothing special here.."></img>
-                </li>                    
-            		
-            		<li><a href="/login" ng-show="!main.isLoggedIn">Login</a></li>
-            		<li><a href="/register" ng-show="!main.isLoggedIn">Register</a></li>
-            		<li><a href="/" ng-click="main.logout()" ng-show="main.isLoggedIn">Logout</a></li> 
-                <li><a href="/thesaurus" ng-show="main.isLoggedIn">Thesaurus</a></li>
-                <li><a href="/" >Home</a></li>
-                <li><a href="/" >Signed in as: {{main.username}}</a></li>
+      	<div class="container" >
+
+          <div id="navbar" ng-init="isNavCollapsed=true;" class="navbar-collapse collapse"    uib-collapse="isNavCollapsed">
+
+          		<ul class="nav navbar-nav " >
+                <li>
+                  <img class="img-responsive hidden-xs col-sm-5 col-md-5 col-lg-5" src="app/assets/swedenEmoji.png" title="I'm just an image, nothing special here.."></img>
+                </li>
+                <!--Can't get ng-style to apply to the containing div, or the ul tag, so it's applied to each of the anchor tags  -->
+                <li><a href="/" style="color:yellow" >Home</a></li>
+                <li><a href="/thesaurus" ng-style="linkStyles"    ng-show="main.isLoggedIn">Thesaurus</a></li>
+            		<li><a href="/login" ng-style="linkStyles" ng-show="!main.isLoggedIn">Login</a></li>
+            		<li><a href="/register" ng-style="linkStyles"  ng-show="!main.isLoggedIn">Register</a></li>
+            		<li><a href="/" ng-style="linkStyles"  ng-click="main.logout()" ng-show="main.isLoggedIn">Logout</a></li>
+
+                <li><a href="/" style="color:yellow" ng-show="main.isLoggedIn" >Signed in as: {{main.username}}</a></li>
           		</ul>
         	</div><!--/.nav-collapse -->
       	</div>
@@ -76,11 +77,11 @@
      </nav>
 
 
-    <!-- <div class="container container-fluid" ng-view style="background:#CAE4DB;border: 1px solid white;
-    border-radius: 10px;margin: 25px 20px 75px;"> -->
+
+
     <div class="container container-fluid" ng-view style="background:#CAE4DB;border: 1px solid white;
     border-radius: 10px;margin: auto; width:95%">
-    
+
   	</div>
     <br>
   </body>

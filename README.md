@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.2.3
+#### README file 1.3.1
 
 
 To run:
@@ -10,18 +10,27 @@ To run:
 
 Requirements:
 
-- NodeJs and MongoDb are required to be installed locally on your machine
+- NodeJs is required to be installed locally on your machine
 
 ---
 
 Bugs:
 - When forms are successfully submited, their values are cleared. This is not the case with passwords on the register view, not sure why it's happening. (From 1.2.0, fixed in 1.2.2)
-- Hamburger menu won't collapse on toggle. Puzzled as to why this is happening.
-- Assigning Font-family in stylesheet won't render, thus we're setting the Font-family for the entire body from within our index page. It's clean, but inline styling is always discouraged(From 1.2.3)
+- Hamburger menu won't collapse on toggle. Puzzled as to why this is happening. (From 1.2.2, fixed in 1.3.1)
+- Assigning Font-family in stylesheet won't render, thus we're setting the Font-family for the entire body from within our index page. (From 1.2.3)
+- Most CSS styling is being applied when using a stylesheet. For that reason, there's some inline styling. It's clean, but not the ideal practice
 
 ---
 
 Added in previous commits::
+
+(1.3.1)
+- Fixed differing logo positioning on different screen sizes.
+- Fixed non-collapsing hamburger menu on small devices.
+- Base word input on thesaurus page now features a loading animation inside the textbox while it's querying the database. Have set it under a timer, as you usually won't see it under a high-speed connection.
+
+(1.3.0)
+- Added tests with Mocha
 
 (1.2.3)
 - Added custom font, similar typography to an actual thesaurus.

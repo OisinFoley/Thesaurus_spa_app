@@ -15,7 +15,7 @@ angular.module("thesaurusServices",[])
 	};
 
 	wordFactory.listWords = function(){
-		return $http.post('/api/word/listWords');
+		return $http.get('/api/word/listWords');
 	};
 
 	return wordFactory;
