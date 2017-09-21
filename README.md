@@ -5,13 +5,11 @@
 
 To run:
 
-1) Go to project root and run
-`node app.js`
-
-or 
-
-click [here](https://thesaurus-app-spa.herokuapp.com/thesaurus/) to view a live demo
+1) Go to project root and run 
+`node app.js` or click [here](https://thesaurus-app-spa.herokuapp.com/thesaurus/) to view a live demo
 (optimised for desktop/mobile)
+
+
 
 
 Requirements:
