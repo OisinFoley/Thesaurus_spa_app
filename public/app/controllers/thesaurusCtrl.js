@@ -22,46 +22,46 @@ angular.module('thesaurusController',['thesaurusServices'])
 			 mutt      -> dog
 */
 
-		// var baseWord = app.wordData.baseWord;
-		var baseWord2 = app.wordData.baseWord;
-		var baseWord = [];
-		baseWord.push(baseWord2);
-
-		// var entriesArr = [];
-		// entriesArr.push(baseWord);
-		var words = app.wordData.synonym.split(",");
-		//console.log(words.length);
-
-		words = baseWord.concat(words);
-		console.log(words.length);
-		//entriesArr.push(synonyms);
-		//console.log(entriesArr.length);
-
-
-		console.log(words.length);
-		var keys = [];
-		var values = [];
-		for(var i = 0; i < words.length; i++){
-			keys.push(words[i]);
-
-
-			for(var x = 0; x < words.length; x++){
-
-				var tempValues = words;
-				//console.log("tempvalues is :: %s", JSON.stringify(tempValues));
-					for(var o = 0; o < words.length; o++){
-						if(words[o] === words[x]){
-							tempValues.splice(tempValues[o]);
-						}
-						console.log(JSON.stringify(tempValues));
-					}
-					values.push(tempValues);
-				//values . pop (words[x]);
-				//tempValues.splice(tempValues.indexOf(words[x]));
-				//values.push(tempValues);
-			};
-		};
-		console.log("the minced keys array is :: %s", JSON.stringify(keys));
+		// // var baseWord = app.wordData.baseWord;
+		// var baseWord2 = app.wordData.baseWord;
+		// var baseWord = [];
+		// baseWord.push(baseWord2);
+		//
+		// // var entriesArr = [];
+		// // entriesArr.push(baseWord);
+		// var words = app.wordData.synonym.split(",");
+		// //console.log(words.length);
+		//
+		// words = baseWord.concat(words);
+		// console.log(words.length);
+		// //entriesArr.push(synonyms);
+		// //console.log(entriesArr.length);
+		//
+		//
+		// console.log(words.length);
+		// var keys = [];
+		// var values = [];
+		// for(var i = 0; i < words.length; i++){
+		// 	keys.push(words[i]);
+		//
+		//
+		// 	for(var x = 0; x < words.length; x++){
+		//
+		// 		var tempValues = words;
+		// 		//console.log("tempvalues is :: %s", JSON.stringify(tempValues));
+		// 			for(var o = 0; o < words.length; o++){
+		// 				if(words[o] === words[x]){
+		// 					tempValues.splice(tempValues[o]);
+		// 				}
+		// 				console.log(JSON.stringify(tempValues));
+		// 			}
+		// 			values.push(tempValues);
+		// 		//values . pop (words[x]);
+		// 		//tempValues.splice(tempValues.indexOf(words[x]));
+		// 		//values.push(tempValues);
+		// 	};
+		// };
+		// console.log("the minced keys array is :: %s", JSON.stringify(keys));
 		//console.log("the minced values array is :: $s", JSON.stringify(values));
 
 
