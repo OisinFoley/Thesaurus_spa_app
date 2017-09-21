@@ -22,59 +22,49 @@ angular.module('thesaurusController',['thesaurusServices'])
 			 mutt      -> dog
 */
 
-		// // var baseWord = app.wordData.baseWord;
-		// var baseWord2 = app.wordData.baseWord;
-		// var baseWord = [];
-		// baseWord.push(baseWord2);
-		//
-		// // var entriesArr = [];
-		// // entriesArr.push(baseWord);
-		// var words = app.wordData.synonym.split(",");
-		// //console.log(words.length);
-		//
-		// words = baseWord.concat(words);
-		// console.log(words.length);
-		// //entriesArr.push(synonyms);
-		// //console.log(entriesArr.length);
-		//
-		//
-		// console.log(words.length);
-		// var keys = [];
-		// var values = [];
-		// for(var i = 0; i < words.length; i++){
-		// 	keys.push(words[i]);
-		//
-		//
-		// 	for(var x = 0; x < words.length; x++){
-		//
-		// 		var tempValues = words;
-		// 		//console.log("tempvalues is :: %s", JSON.stringify(tempValues));
-		// 			for(var o = 0; o < words.length; o++){
-		// 				if(words[o] === words[x]){
-		// 					tempValues.splice(tempValues[o]);
-		// 				}
-		// 				console.log(JSON.stringify(tempValues));
-		// 			}
-		// 			values.push(tempValues);
-		// 		//values . pop (words[x]);
-		// 		//tempValues.splice(tempValues.indexOf(words[x]));
-		// 		//values.push(tempValues);
-		// 	};
-		// };
-		// console.log("the minced keys array is :: %s", JSON.stringify(keys));
-		//console.log("the minced values array is :: $s", JSON.stringify(values));
+// //OP code-
+// var baseWord = [];
+// baseWord.push("dog");
+// var synonyms = ["hound", "mutt", "canine"];
+// var words = baseWord.concat(synonyms);
+// console.log(words.length); //outputs 4
 
+// //and new code
+// //put result into an object
+// var dictionary = {};
+// for (var i = 0, w; w = words[i]; ++i) {
+//   //take each word (w)
+//   dictionary[w] = words.filter(function(word) {
+//     return word != w;//all words except w
+//   });
+// }
+// //take the object
+// console.log(dictionary);
+// //or stringify it
+// console.log(JSON.stringify(dictionary));
 
-	/*
-		var synonyms = app.wordData.synonym;
-		// console.log("synonyms is :: %s", synonyms);
-		synonyms = synonyms.split(",");
-		var entriesArr = [];
-		entriesArr.push({  });
-		synonyms.forEach(individualSynonym ,index){
-			entriesArr.push({   })
-		}
-	*/
+//OP code
+var baseWord = [];
+baseWord.push(app.wordData.baseWord);
+var synonyms = app.wordData.synonym.split(',');
+var words = baseWord.concat(synonyms);
+console.log(words.length); //outputs 4
+
+//and new code
+//put result into an object
+var dictionary = {};
+for (var i = 0, w; w = words[i]; ++i) {
+  //take each word (w)
+  dictionary[w] = words.filter(function(word) {
+    return word != w;//all words except w
+  });
+}
+//take the object
+console.log(dictionary);
+//or stringify it
+console.log(JSON.stringify(dictionary));
+console.log(dictionary.keys.length);
+
 
 		app.loading = true;
 		//console.log(app.wordData);

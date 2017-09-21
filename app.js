@@ -27,8 +27,8 @@ app.use('/api', appRoutes);
 
 
 //cloud vendor string
-// mongoose.connect('mongodb://oisinfoley:p1nec0ne@ds127894.mlab.com:27894/oisinfoleymongo', function(err){
-mongoose.connect('mongodb://localhost:27017/', function(err){	
+ mongoose.connect('mongodb://oisinfoley:p1nec0ne@ds127894.mlab.com:27894/oisinfoleymongo', function(err){
+//mongoose.connect('mongodb://localhost:27017/', function(err){	
 	if(err){
 		console.log("NOT connected to the db: " + err);
 	} else {

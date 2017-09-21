@@ -7,16 +7,16 @@ var app = angular.module('appRoutes',['ngRoute'])
 	$routeProvider
 	.when('/', {
 		templateUrl: 'app/views/home.html'
-	})	
-	.when('/register', { 
+	})
+	.when('/register', {
 		templateUrl: 'app/views/pages/users/register.html',
 		controller: 'registerCtrl',
 		controllerAs: 'register'
 	})
-	.when('/login', { 		
-		 templateUrl: 'app/views/pages/users/login.html',		
-	})		
-	.when('/thesaurus', { 
+	.when('/login', {
+		 templateUrl: 'app/views/pages/users/login.html',
+	})
+	.when('/thesaurus', {
 		templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
 		controller: 'thesaurusCtrl',
 		controllerAs: 'thesaurus'
@@ -30,6 +30,5 @@ var app = angular.module('appRoutes',['ngRoute'])
 	  requireBase: false
 	});
 
-	
+
 });
-	
