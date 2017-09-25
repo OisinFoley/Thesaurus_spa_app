@@ -10,61 +10,32 @@ angular.module('thesaurusController',['thesaurusServices'])
 	app.addSynonym = function(wordData,valid){
 		console.log("in the addSynonym function");
 
+		var baseWord = [];
+		baseWord.push(app.wordData.baseWord);
+		var synonyms = app.wordData.synonym.split(',');
+		var words = baseWord.concat(synonyms);
+		console.log(words);
+		console.log(words.length);
+		//if user tries to enter empty String, we will catch it here
+		//eg - [a,,,b,,c,,,,,d] becomes [a,b,c,d]
+		words=words.filter(Boolean);
+		console.log("Empty Strings removed!");
+		console.log(words);
+		console.log(words.length);
 
-/*
-		beginning to look into also adding each of the synonyms as a base word,
-		if I enter 2 synonyms for a 'Dog', I expect to be able to look up those syonyms and have the word 'Dog' returned
-
-		eg - base word -> synonym entered
-			 dog       -> canine, mutt
-		then automatically enter:
-			 canine    -> dog
-			 mutt      -> dog
-*/
-
-// //OP code-
-// var baseWord = [];
-// baseWord.push("dog");
-// var synonyms = ["hound", "mutt", "canine"];
-// var words = baseWord.concat(synonyms);
-// console.log(words.length); //outputs 4
-
-// //and new code
-// //put result into an object
-// var dictionary = {};
-// for (var i = 0, w; w = words[i]; ++i) {
-//   //take each word (w)
-//   dictionary[w] = words.filter(function(word) {
-//     return word != w;//all words except w
-//   });
-// }
-// //take the object
-// console.log(dictionary);
-// //or stringify it
-// console.log(JSON.stringify(dictionary));
-
-//OP code
-var baseWord = [];
-baseWord.push(app.wordData.baseWord);
-var synonyms = app.wordData.synonym.split(',');
-var words = baseWord.concat(synonyms);
-console.log(words.length); //outputs 4
-
-//and new code
-//put result into an object
-var dictionary = {};
-for (var i = 0, w; w = words[i]; ++i) {
-  //take each word (w)
-  dictionary[w] = words.filter(function(word) {
-    return word != w;//all words except w
-  });
-}
-//take the object
-console.log(dictionary);
-//or stringify it
-console.log(JSON.stringify(dictionary));
-console.log(dictionary.keys.length);
-
+		//and new code
+		//put result into an object
+		var dictionary = {};
+		for (var i = 0, w; w = words[i]; ++i) {
+		  //take each word (w)
+		  dictionary[w] = words.filter(function(word) {
+		    return word != w;//all words except w
+		  });
+		}
+		//take the object
+		console.log(dictionary);
+		//or stringify it
+		console.log(JSON.stringify(dictionary));
 
 		app.loading = true;
 		//console.log(app.wordData);
@@ -74,7 +45,9 @@ console.log(dictionary.keys.length);
 			app.errorMsg = false;
 
 			//console.log(app.wordData);
-			Word.addSynonym(app.wordData).then(function(data, wordData){
+			// Word.addSynonym(app.wordData).then(function(data, wordData){
+			Word.addSynonym(dictionary).then(function(data, wordData){
+
 				if(data.data.success){
 					//lost scope of 'this' in here, hence use of var app
 					app.loading = false;
@@ -160,6 +133,7 @@ console.log(dictionary.keys.length);
 					// console.log("the response is :: %s",JSON.stringify(data.data.words));
 
 					app.wordsList = data.data.words;
+					console.log("words is :: %s", JSON.stringify(data.data.words));
 
 
 					//app.successMsg = data.data.message;

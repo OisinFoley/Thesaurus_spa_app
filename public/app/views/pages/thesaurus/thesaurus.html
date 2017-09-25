@@ -1,7 +1,7 @@
 <div class="page-header">
 
-	<h4 class="hidden-xs hidden-sm" ng-class="{'formLabels':wordForm}"><em>Thesaurus - Main</em></h4>
-	<h5 class="hidden-md hidden-lg" ng-class="{'formLabels':wordForm}"><em><b>Thesaurus - Main</b></em></h5>
+	<h4 class="hidden-xs hidden-sm" ng-class="{'formLabels':wordForm}"><em>Thesaurus - Adding synonyms (words that mean the same as another word)</em></h4>
+	<h5 class="hidden-md hidden-lg" ng-class="{'formLabels':wordForm}"><em><b>Thesaurus - Adding synonyms (words that mean the same as another word)</b></em></h5>
 </div>
 
 <label>
@@ -149,7 +149,7 @@
 				{{synonym.synonym}}
 			</div> -->
 			<label ng-repeat="synonym in word.synonyms">
-				&nbsp{{synonym.synonym}}	|
+				&nbsp{{synonym}}	<label style="color:#ffffe5" ng-if="!$last">|</label>
 			</label>
 
 	</div>

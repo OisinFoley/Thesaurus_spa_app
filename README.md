@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.3.1
+#### README file 1.3.2
 
 
 To run:
@@ -27,6 +27,14 @@ Bugs:
 ---
 
 Added in previous commits::
+
+(1.3.2)
+
+- Synonyms(words that mean the same as the base word), are now cycled through and re-entered as the base word, creating a more thorough thesaurus. 
+
+>Eg - When entering a base word of "A" and synonyms as "B,C", the app also enters base "B" and synonyms of "A,C" as well as base "C" and synonyms of "A,B"
+
+- Slight change to structure data when stored in database.
 
 (1.3.1)
 - Fixed differing logo positioning on different screen sizes.
