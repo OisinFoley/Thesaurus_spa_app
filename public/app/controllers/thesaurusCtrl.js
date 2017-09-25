@@ -95,6 +95,8 @@ angular.module('thesaurusController',['thesaurusServices'])
 						 app.loading = false;
 					}, 500);
 
+					console.log("the FINDSYNONYMS SYNOYNMS ARE :: %S",data.data.word[0].synonyms)
+					
 					//we are returned an array from the database, so even though we will usually get only one index,
 					//we must specifiy the zeroth index to access our synonyms
 					console.log(JSON.stringify(data.data.word[0].synonyms));
@@ -103,6 +105,7 @@ angular.module('thesaurusController',['thesaurusServices'])
 					app.reminderMsg = data.data.reminder;
 
 					app.synonyms = data.data.word[0].synonyms;
+					;
 
 				}
 				else{
