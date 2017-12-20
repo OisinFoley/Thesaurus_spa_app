@@ -8,10 +8,9 @@ angular.module('userControllers', ['userServices'])
 	
 	app.regUser = function(regData, firstPassword, confirm, valid){
 		
-		
-		console.log("data is : %s", app.regData.email);		
-		console.log(firstPassword);
-		console.log(confirm);
+				
+		// console.log(firstPassword);
+		// console.log(confirm);
 		//console.log("Inside register function in userCtrl")
 		
 		//toggles display of loading icon, visible on slow connection if browser's speed is throttled.
@@ -75,8 +74,8 @@ angular.module('userControllers', ['userServices'])
 
 		$timeout(function(){
 					//acts as simple redirect
-					app.checkingUsername = false; 			
-				}, 1000);								
+					app.checkingEmail	 = false; 			
+				}, 100);								
 
 		console.log("hit check email");
 		

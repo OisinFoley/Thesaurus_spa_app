@@ -78,7 +78,7 @@ module.exports = function(router){
 					else {
 						//we're going to decrypt this token, then send it back to the '/me' path, using the middleware declared below
 
-						var token = jwt.sign({ uuid: user.uuid, username: user.username, email: user.email }, secret, { expiresIn: 1 });
+						var token = jwt.sign({ uuid: user.uuid, username: user.username, email: user.email }, secret, { expiresIn: '1hr' });
 						res.json({ success:true, message: 'User authenticated', token:token});
 					}
 				}
