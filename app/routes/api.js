@@ -175,24 +175,28 @@ module.exports = function(router){
 	router.get('/word/listWords', function(req,res){
 		console.log("we've hit /word/listWords route, searching for words...");
 
-		Word.find({  }).select(' baseWord synonyms').exec(function(err, words){
-			if(err) throw err;
+		// Word.find({  }).select(' baseWord synonyms').exec(function(err, words){
+		// 	if(err) throw err;
 
-			if(words.length > 0) {
+		// 	if(words.length > 0) {
 
-				try{
-					res.json({ success:true, message: "We found the following list of words: ", words:words});
-					console.log("Words found and should have been returned to client ...");
-				} catch(err){
-					res.json({ success:false, message: "No words found: " });
-					console.log("There was the following error : %s", err);
-				}
-			}
-			else {
-				res.json({ success:false, message: "No words found: " });
-			}
+		// 		try{
+		// 			res.json({ success:true, message: "We found the following list of words: ", words:words});
+		// 			console.log("Words found and should have been returned to client ...");
+		// 		} catch(err){
+		// 			res.json({ success:false, message: "No words found: " });
+		// 			console.log("There was the following error : %s", err);
+		// 		}
+		// 	}
+		// 	else {
+		// 		res.json({ success:false, message: "No words found: " });
+		// 	}
 
-		});
+		// });
+
+		console.log("we've hit /word/listWords route, searching for words...");
+
+		res.json({ success:true, message: "No words found: " });		
 
 	});
 

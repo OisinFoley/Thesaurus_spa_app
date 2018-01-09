@@ -17,7 +17,8 @@
       <!-- main angular files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js"></script> -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
 
 
@@ -63,11 +64,17 @@
                   <img class="img-responsive hidden-xs col-sm-5 col-md-5 col-lg-5" src="app/assets/swedenEmoji.png" title="I'm just an image, nothing special here.."></img>
                 </li>
                 <!--Can't get ng-style to apply to the containing div, or the ul tag, so it's applied to each of the anchor tags  -->
+
+                <!-- <li><a ui-sref="home">Home</a></li>
+                <li><a ui-sref="about">About</a></li> -->
+
                 <li><a href="/" style="color:yellow" >Home</a></li>
-                <li><a href="/thesaurus" ng-style="linkStyles"    ng-show="main.isLoggedIn">Thesaurus</a></li>
-            		<li><a href="/login" ng-style="linkStyles" ng-show="!main.isLoggedIn">Login</a></li>
+                <!-- <li><a href="/thesaurus" ng-style="linkStyles"    ng-show="main.isLoggedIn">Thesaurus</a></li> -->
+                <li><a ui-sref="/thesaurus" ng-style="linkStyles">Thesaurus</a></li>
+
+            		<!-- <li><a href="/login" ng-style="linkStyles" ng-show="!main.isLoggedIn">Login</a></li>
             		<li><a href="/register" ng-style="linkStyles"  ng-show="!main.isLoggedIn">Register</a></li>
-            		<li><a href="/" ng-style="linkStyles"  ng-click="main.logout()" ng-show="main.isLoggedIn">Logout</a></li>
+            		<li><a href="/" ng-style="linkStyles"  ng-click="main.logout()" ng-show="main.isLoggedIn">Logout</a></li> -->
 
                 <li><a href="/" style="color:yellow" ng-show="main.isLoggedIn" >Signed in as: {{main.username}}</a></li>
           		</ul>
@@ -79,10 +86,14 @@
 
 
 
-    <div class="container container-fluid" ng-view style="background:#CAE4DB;border: 1px solid white;
+    <!-- <div class="container container-fluid" ng-view style="background:#CAE4DB;border: 1px solid white;
     border-radius: 10px;margin: auto; width:95%">
 
-  	</div>
+  	</div> -->
+
+    <div class="container container-fluid" style="background:#CAE4DB;border: 1px solid white;
+    border-radius: 10px;margin: auto; width:95%" ui-view></div>
+
     <br>
   </body>
 </html>
