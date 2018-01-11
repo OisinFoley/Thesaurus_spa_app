@@ -34,7 +34,7 @@
 // });
 
 // var routerApp = angular.module('appRoutes', ['ui.router']);
-var routerApp = angular.module('appRoutes', ['ui.router'])
+var routerApp = angular.module('appRoutes', ['ui.router','mainCtrl'])
 
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {
@@ -44,26 +44,29 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
     		       
         // HOME STATES AND NESTED VIEWS ========================================
-        .state('home', {
-            url: '/home',
-            // templateUrl: 'partial-home.html'
-            // templateUrl: 'app/views/pages/users/register.html'
-            templateUrl: 'app/views/home.html'            
-        })
+        
 
-        .state('/thesaurus', {
+        .state('thesaurus', {
         	url: '/thesaurus',
 			templateUrl: 'app/views/pages/thesaurus/thesaurus.html',			
-			controller: 'thesaurusCtrl',
-			controllerAs: 'thesaurus'
+			// controller: 'thesaurusCtrl',
+			// controllerAs: 'thesaurus'
 		})
         
         // nested list with custom controller
-        .state('home.list', {
-            url: '/list',
-            templateUrl: 'partial-home-list.html',
+        .state('thesaurus.antonyms', {
+            url: '/antonyms',
+            templateUrl: 'app/views/pages/thesaurus/thesaurus-antonyms.html',
             controller: function($scope) {
                 $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
+            }
+        })
+
+        .state('thesaurus.synonyms', {
+            url: '/synonyms',
+            templateUrl: 'app/views/pages/thesaurus/thesaurus-synonyms.html',
+            controller: function($scope) {
+                $scope.dogs = ['monty', 'rodney', 'oisin'];
             }
         })
         
@@ -71,6 +74,13 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         .state('home.paragraph', {
             url: '/paragraph',
             template: 'I could sure use a drink right now.'
+        })
+
+        .state('home', {
+            url: '/home',
+            // templateUrl: 'partial-home.html'
+            // templateUrl: 'app/views/pages/users/register.html'
+            templateUrl: 'app/views/home.html'            
         })
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================

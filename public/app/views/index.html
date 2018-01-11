@@ -16,6 +16,8 @@
 
       <!-- main angular files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <!-- <script src="http://code.angularjs.org/1.2.13/angular.js"></script> -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js"></script> -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
@@ -40,7 +42,9 @@
 
     </head>
 
-  <body ng-app="appCore" ng-controller="mainCtrl as main" ng-cloak style="background:#CAE4DB;font-family:Old Standard TT">
+  <!-- <body ng-app="appCore" ng-controller="mainCtrl as main" ng-cloak style="background:#CAE4DB;font-family:Old Standard TT"> -->
+  <body ng-app="appRoutes" ng-controller="mainCtrl as main" ng-cloak style="background:#CAE4DB;font-family:Old Standard TT">
+
 
     <nav  class="navbar navbar-inverse" role="navigation" style="background:#52658f">
         <div class="navbar-header">
@@ -70,7 +74,9 @@
 
                 <li><a href="/" style="color:yellow" >Home</a></li>
                 <!-- <li><a href="/thesaurus" ng-style="linkStyles"    ng-show="main.isLoggedIn">Thesaurus</a></li> -->
-                <li><a ui-sref="/thesaurus" ng-style="linkStyles">Thesaurus</a></li>
+
+                <!-- <li><a ui-sref="thesaurus" ng-style="linkStyles">Thesaurus</a></li> -->
+                <li><a ui-sref="thesaurus.synonyms" ng-style="linkStyles">Thesaurus</a></li>
 
             		<!-- <li><a href="/login" ng-style="linkStyles" ng-show="!main.isLoggedIn">Login</a></li>
             		<li><a href="/register" ng-style="linkStyles"  ng-show="!main.isLoggedIn">Register</a></li>

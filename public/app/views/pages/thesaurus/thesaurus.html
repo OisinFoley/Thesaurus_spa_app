@@ -1,3 +1,14 @@
+Would you like to find similar words? (blue) or find words with the opposite meaning? (red)<br>
+<a ui-sref=".synonyms" class="btn btn-primary">synonyms</a>
+
+<a ui-sref=".antonyms" class="btn btn-danger">antonyms</a>
+
+
+
+<!-- <div ui-view></div> -->
+
+<hr>
+
 <div class="page-header">
 
 	<h4 class="hidden-xs hidden-sm" ng-class="{'formLabels':wordForm}"><em>Thesaurus - Adding synonyms (words that mean the same as another word)</em></h4>
@@ -60,6 +71,10 @@
 		</ul>
 	</div>
 	<br>
+
+	<!-- container for toggling 'anontyms' nested view -->
+	<div ui-view></div>
+
 	<!-- SYNONYM WORD VALIDATION SETUP -->
 	<div ng-class="{ 'has-success':(wordForm.synonym.$valid && !wordForm.synonym.$pristine && !thesaurus.synonymInvalid), 'has-error':(!wordForm.synonym.$valid && !wordForm.synonym.$pristine) || (!wordForm.synonym.$valid && wordForm.$submitted) ||  thesaurus.synonymInvalid }">
 		<label ng-class="{'formLabels':wordForm}">Base word:</label>
