@@ -48,9 +48,9 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         .state('thesaurus', {
         	url: '/thesaurus',
-			templateUrl: 'app/views/pages/thesaurus/thesaurus.html',			
-			// controller: 'thesaurusCtrl',
-			// controllerAs: 'thesaurus'
+			templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
+			controller: 'thesaurusCtrl',
+			controllerAs: 'thesaurus'
 		})
         
         // nested list with custom controller
@@ -64,11 +64,18 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
         .state('thesaurus.synonyms', {
             url: '/synonyms',
-            templateUrl: 'app/views/pages/thesaurus/thesaurus-synonyms.html',
-            controller: function($scope) {
-                $scope.dogs = ['monty', 'rodney', 'oisin'];
-            }
+            templateUrl: 'app/views/pages/thesaurus/thesaurus-synonyms.html'//,
+   //          controller: 'thesaurusCtrl',
+			// controllerAs: 'thesaurus'
+
+            // controller: function($scope) {
+            //     $scope.dogs = ['monty', 'rodney', 'oisin'];
+            // }
         })
+
+        // 	.when('/login', {
+// 		 templateUrl: 'app/views/pages/users/login.html',
+// 	})
         
         // nested list with just some random string data
         .state('home.paragraph', {
@@ -99,10 +106,29 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         
 });
 
+//angular.module("myApp", [])
+
+// routerApp.component("thesaurusForm",{
+//       templateUrl: "app/components/thesaurus-form.html",
+//       bindings: { name: '@' }
+//   });
+
+routerApp.directive('thesaurusForm', function() {
+	return{
+		templateUrl: 'app/components/thesaurus-form.html'//,
+      	// bindings: { name: '@' }	
+      	// controller: 'thesaurusCtrl',
+      	// controllerAs: 'thesaurus'
+	}
+      
+});
+
 // angular.module('thesaurusController',['thesaurusServices'])
 routerApp.controller('thesaurusCtrl' ,function($scope, Word) {
 
 // .controller('thesaurusCtrl',function($scope, Word, $timeout){
+
+	console.log("chicken wings");
 
 	var app = this;
 	//app.loading = true;
@@ -228,6 +254,8 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word) {
 	app.loadAllWords = function(){
 			// app.loading = true;
 
+			console.log("i want to load words...");
+
 			Word.listWords().then(function(data){
 				if(data.data.success){
 					//lost scope of controller's 'this' keyword, hence use of var app
@@ -245,6 +273,7 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word) {
 
 				}
 				else{
+					console.log("nope");
 					//app.loading = false;
 					// app.errorMsg = data.data.message;
 				}
@@ -305,15 +334,4 @@ routerApp.controller('scotchController' ,function($scope, Word) {
         }
     ];
     
-});
-
-// routerApp.module("thesaurusServices",[])
-routerApp.factory('Word', function($http){
-    var wordFactory = {};
-
-    wordFactory.listWords = function(){
-        return $http.get('/api/word/listWords');
-    };
-
-    return wordFactory;
 });

@@ -3,7 +3,7 @@
 angular.module('thesaurusController',['thesaurusServices'])
 
 .controller('thesaurusCtrl',function($scope, Word, $timeout){
-
+	
 	var app = this;
 	//app.loading = true;
 

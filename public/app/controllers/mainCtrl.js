@@ -10,6 +10,8 @@ angular.module('mainCtrl',['authServices'])
 		"color":"yellow"
 	}
 
+	console.log("hi i'm main");
+
 	//Use this to check login status each time the view changes.
 	//Without this we would have to refresh the browser to check the user's login status
 	$rootScope.$on('$routeChangeStart', function() {

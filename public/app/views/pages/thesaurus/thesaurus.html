@@ -4,7 +4,6 @@ Would you like to find similar words? (blue) or find words with the opposite mea
 <a ui-sref=".antonyms" class="btn btn-danger">antonyms</a>
 
 
-
 <!-- <div ui-view></div> -->
 
 <hr>
@@ -35,145 +34,13 @@ Would you like to find similar words? (blue) or find words with the opposite mea
 </h6>
 </label>
 
+<!-- container for nested 'synonym' or 'anontyms' view -->
+<div ui-view></div>
 
 
-<form name="wordForm" ng-submit="thesaurus.addSynonym(wordData, wordForm.$valid);" novalidate>
-
-	<br>
-	<!-- BASE WORD VALIDATION SETUP -->
-	<div ng-class="{ 'has-success':(wordForm.baseWord.$valid && !wordForm.baseWord.$pristine && !thesaurus.baseWordInvalid), 'has-error':(!wordForm.baseWord.$valid && !wordForm.baseWord.$pristine) || (!wordForm.baseWord.$valid && wordForm.$submitted) ||  thesaurus.baseWordInvalid }">
-		<label ng-class="{'formLabels':wordForm}">Base word:</label>
-
-		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
-		<!-- <input class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-change="thesaurus.findSynonym()" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required> -->
-
-		<div style="position: relative;" class="inner-addon right-addon">
-			<i ng-show="thesaurus.loading" style="right: 0px;position: absolute; padding: 10px; pointer-events: none;" class="fa fa-spinner fa-spin"></i>
-			<input style="padding-right: 30px;" class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-change="thesaurus.findSynonym()" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required>
-
-			<!-- <input style="padding-right: 30px;" type="text" class="form-control" placeholder="Search" /> -->
-		</div>
-
-		<p  ng-show="(!wordForm.baseWord.$pristine && wordForm.baseWord.$error.required) || (wordForm.$submitted && wordForm.baseWord.$error.required)" ng-class="{'errorMsg':wordForm}">Base word required
-		</p>
-
-		<span class="glyphicon glyphicon-refresh glyphicon-spin" ng-show="thesaurus.checkingBaseWord"></span>
-
-		<p ng-class="{'serverMsg': wordForm}"  ng-show="thesaurus.baseWordMsg && !wordForm.baseWord.$error.required && wordForm.baseWord.$valid ">
-		{{ thesaurus.baseWordMsg }}
-		</p>
 
 
-		<ul ng-show="(!wordForm.baseWord.$pristine && wordForm.baseWord.$error.pattern) || (!wordForm.baseWord.$pristine && wordForm.baseWord.$error.minlength) || (!wordForm.baseWord.$pristine && wordForm.baseWord.$error.maxlength)" ng-class="{'errorMsg':wordForm}">
-			<li>Only letters, apostrophe and ampersand (&) allowed.</li>
-			<li>Must not have any special characters.</li>
-			<li>Must be between 2 and 45 characters long.</li>
-		</ul>
-	</div>
-	<br>
 
-	<!-- container for toggling 'anontyms' nested view -->
-	<div ui-view></div>
-
-	<!-- SYNONYM WORD VALIDATION SETUP -->
-	<div ng-class="{ 'has-success':(wordForm.synonym.$valid && !wordForm.synonym.$pristine && !thesaurus.synonymInvalid), 'has-error':(!wordForm.synonym.$valid && !wordForm.synonym.$pristine) || (!wordForm.synonym.$valid && wordForm.$submitted) ||  thesaurus.synonymInvalid }">
-		<label ng-class="{'formLabels':wordForm}">Base word:</label>
-
-		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
-		<input class="form-control" type="text" name="synonym" placeholder="Separate multiples with a comma ' , '" ng-model="thesaurus.wordData.synonym" ng-pattern="/^(([\sa-zA-Z',&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkSynonym(wordData)" required>
-
-		<p  ng-show="(!wordForm.synonym.$pristine && wordForm.synonym.$error.required) || (wordForm.$submitted && wordForm.synonym.$error.required)" ng-class="{'errorMsg':wordForm}">Synonym word required
-		</p>
-
-		<span class="glyphicon glyphicon-refresh glyphicon-spin" ng-show="thesaurus.checkingSynonym"></span>
-
-		<p ng-class="{'serverMsg': wordForm}"  ng-show="thesaurus.reminderMsg && !wordForm.baseWord.$error.required && wordForm.baseWord.$valid ">
-		{{ thesaurus.reminderMsg }}
-		</p>
-
-
-		<ul ng-show="(!wordForm.synonym.$pristine && wordForm.synonym.$error.pattern) || (!wordForm.synonym.$pristine && wordForm.synonym.$error.minlength) || (!wordForm.synonym.$pristine && wordForm.synonym.$error.maxlength)" ng-class="{'errorMsg':wordForm}">
-			<li>Only letters, apostrophe, separator(:) and ampersand (&) allowed.</li>
-			<li>Must not have any special characters.</li>
-			<li>Must be between 2 and 45 characters long.</li>
-		</ul>
-	</div>
-
-	<br><br>
-
-	<button class="btn btn-primary col-xs-offset-4 col-xs-5 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4" type="submit">Add Synonyms</button>
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-
-</form>
-<div>
-	<div class="show-hide-message" ng-show="thesaurus.successMsg">
-	<br><br>
-		<div class="alert alert-success" style="color:#EC1A1A">
-		<!-- The default error message is a bit too big on a mobile screen, so we have 2 separate sizes -->
-			<h4 class="hidden-sm hidden-xs">
-				<i class="fa fa-check-circle "></i>
-				<label> Success Message: {{	thesaurus.successMsg }} </label>
-			</h4>
-
-			<h6 class="hidden-md hidden-lg">
-				<i class="fa fa-check-circle "></i>
-				<label> Message: {{	thesaurus.successMsg }} </label>
-			</h6>
-		</div>
-	</div>
-	<br>
-
-	<div class="show-hide-message" ng-show="thesaurus.errorMsg">
-	<br><br>
-		<div class="alert alert-danger " >
-			<h4 class="hidden-sm hidden-xs">
-				<i class="fa fa-times-circle"></i>
-				<label> Error Message: {{ thesaurus.errorMsg }} </label>
-			</h4>
-
-			<h6 class="hidden-md hidden-lg">
-				<i class="fa fa-times-circle"></i>
-				<label> Message: {{ thesaurus.errorMsg }} </label>
-			</h6>
-		</div>
-	</div>
-
-
-	<h5>Synonyms:</h5>
-	<p ng-show="thesaurus.synonymMsg">
-			{{ thesaurus.synonymMsg }}
-	</p>
-	<p ng-show="thesaurus.synonymMsg">
-		<div ng-repeat="synonym in thesaurus.synonyms">
-			{{ synonym }}
-		</div>
-
-	</p>
-</div>
-<br><br><br><hr>
-<h5>List of all words in thesaurus:</h5>
-<div ng-init="thesaurus.loadAllWords()">
-	<div ng-repeat="word in thesaurus.wordsList">
-		<label>
-			{{word.baseWord}}:
-		</label>
-			<!-- <div ng-repeat="synonym in word.synonyms">
-				{{synonym.synonym}}
-			</div> -->
-			<label ng-repeat="synonym in word.synonyms">
-				&nbsp{{synonym}}	<label style="color:#ffffe5" ng-if="!$last">|</label>
-			</label>
-
-	</div>
-</div>
-<br>
-<div class="jumbotron text-center" ng-show="thesaurus.loading">
-	<h3><i class="fa fa-spinner fa-spin"></i></h3>
-	<p>Loading....</p>
-</div>
 
 
 <br><br>
