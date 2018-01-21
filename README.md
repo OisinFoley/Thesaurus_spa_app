@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.3.2
+#### README file 1.4.0
 
 
 To run:
@@ -20,13 +20,18 @@ Requirements:
 
 Bugs:
 - When forms are successfully submited, their values are cleared. This is not the case with passwords on the register view, not sure why it's happening. (**From 1.2.0, fixed in 1.2.2**)
-- Hamburger menu won't collapse on toggle. Puzzled as to why this is happening. (**From 1.2.2, fixed in 1.3.1**)
+- Hamburger menu won't collapse on toggle. (**From 1.2.2, fixed in 1.3.1**)
 - Assigning Font-family in stylesheet won't render, thus we're setting the Font-family for the entire body from within our index page. (**From 1.2.3**)
-- Most CSS styling is being applied when using a stylesheet. For that reason, there's some inline styling. It's clean, but not the ideal practice
+- Most CSS styling isn't being applied when using a stylesheet. For that reason, there's some inline styling. Clean, but not the ideal practice
 
 ---
 
 Added in previous commits::
+
+(1.4.0)
+
+- Changed internal router from ngRoute to Ui-router to facilitate use of states, nesting a SPA within our core SPA, allowing us to cleanly implement an additional 'search for antonyms' feature.
+
 
 (1.3.2)
 
