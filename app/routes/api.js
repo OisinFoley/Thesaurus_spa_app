@@ -181,12 +181,15 @@ module.exports = function(router){
 			if(words.length > 0) {
 				console.log("hi");
 				try{
+					// setTimeout(function(){ console.log("huhuhuhuh") }, 3000);
 					console.log("hi2");
+					console.log(words);
+
 					res.json({ success:true, message: "We found the following list of words: ", words:words});
-					console.log("Words found and should have been returned to client ...");
+					// console.log("Words found and should have been returned to client ...");
 				} catch(err){
-					res.json({ success:false, message: "No words found: " });
-					console.log("There was the following error : %s", err);
+					// res.json({ success:false, message: "No words found: " });
+					// console.log("There was the following error : %s", err);
 				}
 			}
 			else {
@@ -195,8 +198,8 @@ module.exports = function(router){
 			}
 
 		});
-		
-		res.json({ success:true, message: "No words found: " });		
+		console.log("hi4");
+		//res.json({ success:true, message: "No words found: " });		
 
 	});
 

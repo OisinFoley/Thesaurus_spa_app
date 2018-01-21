@@ -46,12 +46,75 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         // HOME STATES AND NESTED VIEWS ========================================
         
 
-        .state('thesaurus', {
-        	url: '/thesaurus',
-			templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
-			controller: 'thesaurusCtrl',
-			controllerAs: 'thesaurus'
+        .state('thesaurus', {        	
+        		url: '/thesaurus',	
+        		templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
+				controller: 'thesaurusCtrl',
+				// controllerAs: 'thesaurus',		
+				resolve: {		            
+		            wordsLista: function(Word) {
+		            	// console.log(Word.listWords());
+		            	// return;
+
+		            	return Word.listWords();
+
+		            		//console.log(JSON.stringify(data.data.words));		            				            		
+		            }
+		        }
+		            	// .then(function(data){
+		            	// 	console.log(JSON.stringify(data.data.words));
+		            	// 	// thesaurus.wordsList = data.data.words;
+		            	// 	return data.data.words;
+		            	// });	
+		            
+		        //}//,
+		        
+				//,
+				//controllerAs: 'thesaurus'
 		})
+
+  //       .state('thesaurus', {
+  //       	// resolve:{
+  //       	// 	chicken:function(){
+  //       	// 		console.log("hello");
+  //       	// 	}
+  //       		url: '/thesaurus',				
+		// 		resolve: {
+		//             // words: ['goatsService',
+
+		//             // wordsList: ['Word',		            
+		//             //     function(Word) {
+
+		//             //     return Word.loadAllWords();
+		//             // }],
+		// 			// wordsList:function(Word){
+
+		//             wordsList: ['Word',
+		//             	function(Word) {
+
+		//             	// return Word.listWords();	
+		//             	Word.listWords()
+		//             	.then(function(data){
+		//             		console.log(JSON.stringify(data.data.words));
+		//             		// thesaurus.wordsList = data.data.words;
+		//             		return data.data.words;
+		//             	});	
+
+		//             }]
+
+
+		//             // wordsList: ['thesaurus',
+		//             // 	function(thesaurus) {
+
+		//             // 	return thesaurus.loadAllWords();	
+		//             // }]
+		            
+		//             // goat: function() { return {}; }`
+		//         },
+		//         templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
+		// 		controller: 'thesaurusCtrl',
+		// 		controllerAs: 'thesaurus'
+		// })
         
         // nested list with custom controller
         .state('thesaurus.antonyms', {
@@ -72,11 +135,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             //     $scope.dogs = ['monty', 'rodney', 'oisin'];
             // }
         })
-
-        // 	.when('/login', {
-// 		 templateUrl: 'app/views/pages/users/login.html',
-// 	})
-        
+               
         // nested list with just some random string data
         .state('home.paragraph', {
             url: '/paragraph',
@@ -106,13 +165,6 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         
 });
 
-//angular.module("myApp", [])
-
-// routerApp.component("thesaurusForm",{
-//       templateUrl: "app/components/thesaurus-form.html",
-//       bindings: { name: '@' }
-//   });
-
 routerApp.directive('thesaurusForm', function() {
 	return{
 		templateUrl: 'app/components/thesaurus-form.html'//,
@@ -124,7 +176,7 @@ routerApp.directive('thesaurusForm', function() {
 });
 
 // angular.module('thesaurusController',['thesaurusServices'])
-routerApp.controller('thesaurusCtrl' ,function($scope, Word) {
+routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsLista) {
 
 // .controller('thesaurusCtrl',function($scope, Word, $timeout){
 
@@ -132,6 +184,33 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word) {
 
 	var app = this;
 	//app.loading = true;
+
+	app.loadAllWords = function(){
+			// app.loading = true;
+
+			console.log("i want to load words...");
+
+			Word.listWords().then(function(data){
+				if(data.data.success){
+					//lost scope of controller's 'this' keyword, hence use of var app
+					//app.loading = false;
+					// console.log("the response is :: %s",JSON.stringify(data.data.words));
+
+					// app.wordsList = data.data.words;
+					console.log("words is :: %s", JSON.stringify(data.data.words));
+
+					//app.successMsg = data.data.message;
+					// app.errorMsg = data.data.message;
+				}
+				else{
+					console.log("nope");
+					//app.loading = false;
+					// app.errorMsg = data.data.message;
+				}
+			});
+	}
+	$scope.wordsList = wordsLista.data.words;
+	console.log($scope.wordsList);
 
 	app.addSynonym = function(wordData,valid){
 		console.log("in the addSynonym function");
@@ -200,9 +279,6 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word) {
 	};
 
 
-
-
-
 	//no need for 'valid' like in app.addSynonym() as 'valid' is not initialised until ng-submit executes.
 	//the client will send undefined if the regex fails	which is why we check that wordData != undefined
 	app.findSynonym = function(wordData){
@@ -249,36 +325,6 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word) {
 	};
 
 
-
-
-	app.loadAllWords = function(){
-			// app.loading = true;
-
-			console.log("i want to load words...");
-
-			Word.listWords().then(function(data){
-				if(data.data.success){
-					//lost scope of controller's 'this' keyword, hence use of var app
-					//app.loading = false;
-
-					// console.log("the response is :: %s",JSON.stringify(data.data.words));
-
-					app.wordsList = data.data.words;
-					console.log("words is :: %s", JSON.stringify(data.data.words));
-
-
-					//app.successMsg = data.data.message;
-
-					// app.errorMsg = data.data.message;
-
-				}
-				else{
-					console.log("nope");
-					//app.loading = false;
-					// app.errorMsg = data.data.message;
-				}
-			});
-	}
 
 });
 
