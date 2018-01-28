@@ -107,17 +107,25 @@
 	<p ng-show="thesaurus.synonymMsg">
 			{{ thesaurus.synonymMsg }}
 	</p>
+
 	<p ng-show="thesaurus.synonymMsg">
 		<div ng-repeat="synonym in thesaurus.synonyms">
 			{{ synonym }}
 		</div>
 
 	</p>
+	<div ui-view></div>
+
+
 </div>
 <br><br><br><hr>
 <h5>List of all words in thesaurus:</h5>
-<div ng-init="thesaurus.loadAllWords()">
-	<div ng-repeat="word in thesaurus.wordsList">
+<!-- <div ng-init="thesaurus.loadAllWords()"> -->
+<div>
+
+	<!-- <div ng-repeat="word in thesaurus.wordsList"> -->
+	<div ng-repeat="word in wordsList">
+
 		<label>
 			{{word.baseWord}}:
 		</label>			

@@ -2,26 +2,6 @@
 // var app = angular.module('appRoutes',['ngRoute'])
 
 
-// .config(function($routeProvider, $locationProvider){
-// //on index page, hrefs needs to be '#/abcd' because of Angular, normally just '/' will suffice
-// 	$routeProvider
-// 	.when('/', {
-// 		templateUrl: 'app/views/home.html'
-// 	})
-// 	.when('/register', {
-// 		templateUrl: 'app/views/pages/users/register.html',
-// 		controller: 'registerCtrl',
-// 		controllerAs: 'register'
-// 	})
-// 	.when('/login', {
-// 		 templateUrl: 'app/views/pages/users/login.html',
-// 	})
-// 	.when('/thesaurus', {
-// 		templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
-// 		controller: 'thesaurusCtrl',
-// 		controllerAs: 'thesaurus'
-// 	})
-// 	.otherwise({ redirectTo: '/' }) //handles unrecognised values
 
 // 	//when navigating routes, we normally need to start the path with '#/login' or '#/register'
 // 	//this code snippet, along with '<base href="">'' attribute set in home.html will allow us to remove the '#' at the start of the path
@@ -45,76 +25,41 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     		       
         // HOME STATES AND NESTED VIEWS ========================================
         
-
         .state('thesaurus', {        	
-        		url: '/thesaurus',	
-        		templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
-				controller: 'thesaurusCtrl',
-				// controllerAs: 'thesaurus',		
-				resolve: {		            
-		            wordsLista: function(Word) {
-		            	// console.log(Word.listWords());
-		            	// return;
+    		url: '/thesaurus',	
+    		templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
+			controller: 'thesaurusCtrl',
+			controllerAs: 'thesaurus',	
 
-		            	return Word.listWords();
+			//https://stackoverflow.com/questions/25316591/angularjs-ui-router-state-reload-child-state-only
+			//this might be of use, could make another child-state for the displaying of the found words
+			//and then when typing occurs, make a reload of that state with the async call we desire..	
 
-		            		//console.log(JSON.stringify(data.data.words));		            				            		
-		            }
-		        }
-		            	// .then(function(data){
-		            	// 	console.log(JSON.stringify(data.data.words));
-		            	// 	// thesaurus.wordsList = data.data.words;
-		            	// 	return data.data.words;
-		            	// });	
-		            
-		        //}//,
-		        
-				//,
-				//controllerAs: 'thesaurus'
+			resolve: {		            
+	            wordsList: function(Word) {		            	
+	            	return Word.listWords();
+	            	
+	            	// var dog = { baseWord:'dog' };
+	            	// $http.post('/api/word/findSynonym', dog).then(function(data){
+	            	// 	console.log("dnd");
+	            	// 	console.log(data.data.word[0].synonyms);
+	            	// 	return "hihi";
+	            	// });
+	            }
+	            
+	        }		        
 		})
 
-  //       .state('thesaurus', {
-  //       	// resolve:{
-  //       	// 	chicken:function(){
-  //       	// 		console.log("hello");
-  //       	// 	}
-  //       		url: '/thesaurus',				
-		// 		resolve: {
-		//             // words: ['goatsService',
+  		.state('thesaurus.synonyms', {
+            url: '/synonyms',
+            templateUrl: 'app/views/pages/thesaurus/thesaurus-synonyms.html'//, 
+            // controllerAs:'thesaurus'           
+        })
 
-		//             // wordsList: ['Word',		            
-		//             //     function(Word) {
-
-		//             //     return Word.loadAllWords();
-		//             // }],
-		// 			// wordsList:function(Word){
-
-		//             wordsList: ['Word',
-		//             	function(Word) {
-
-		//             	// return Word.listWords();	
-		//             	Word.listWords()
-		//             	.then(function(data){
-		//             		console.log(JSON.stringify(data.data.words));
-		//             		// thesaurus.wordsList = data.data.words;
-		//             		return data.data.words;
-		//             	});	
-
-		//             }]
-
-
-		//             // wordsList: ['thesaurus',
-		//             // 	function(thesaurus) {
-
-		//             // 	return thesaurus.loadAllWords();	
-		//             // }]
-		            
-		//             // goat: function() { return {}; }`
-		//         },
-		//         templateUrl: 'app/views/pages/thesaurus/thesaurus.html',
-		// 		controller: 'thesaurusCtrl',
-		// 		controllerAs: 'thesaurus'
-		// })
+        .state('thesaurus.synonyms.searchResult', {
+            url: '/synonyms/searchResult',
+            templateUrl: 'app/views/pages/thesaurus/search-result.html',            
+        })
         
         // nested list with custom controller
         .state('thesaurus.antonyms', {
@@ -124,28 +69,9 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
                 $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
             }
         })
-
-        .state('thesaurus.synonyms', {
-            url: '/synonyms',
-            templateUrl: 'app/views/pages/thesaurus/thesaurus-synonyms.html'//,
-   //          controller: 'thesaurusCtrl',
-			// controllerAs: 'thesaurus'
-
-            // controller: function($scope) {
-            //     $scope.dogs = ['monty', 'rodney', 'oisin'];
-            // }
-        })
-               
-        // nested list with just some random string data
-        .state('home.paragraph', {
-            url: '/paragraph',
-            template: 'I could sure use a drink right now.'
-        })
-
+                       
         .state('home', {
-            url: '/home',
-            // templateUrl: 'partial-home.html'
-            // templateUrl: 'app/views/pages/users/register.html'
+            url: '/home',            
             templateUrl: 'app/views/home.html'            
         })
         
@@ -175,8 +101,18 @@ routerApp.directive('thesaurusForm', function() {
       
 });
 
+routerApp.directive('wordsLookup', function() {
+	return{
+		templateUrl: 'app/components/words-lookup.html'//,
+      	// bindings: { name: '@' }	
+      	// controller: 'thesaurusCtrl',
+      	// controllerAs: 'thesaurus'
+	}
+      
+});
+
 // angular.module('thesaurusController',['thesaurusServices'])
-routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsLista) {
+routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsList, $state, $http,$timeout) {
 
 // .controller('thesaurusCtrl',function($scope, Word, $timeout){
 
@@ -209,7 +145,7 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsLista) {
 				}
 			});
 	}
-	$scope.wordsList = wordsLista.data.words;
+	$scope.wordsList = wordsList.data.words;
 	console.log($scope.wordsList);
 
 	app.addSynonym = function(wordData,valid){
@@ -251,7 +187,8 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsLista) {
 
 			//console.log(app.wordData);
 			// Word.addSynonym(app.wordData).then(function(data, wordData){
-			Word.addSynonym(dictionary).then(function(data, wordData){
+			// Word.addSynonym(dictionary).then(function(data, wordData){
+			$http.post('/api/word/addSynonym', dictionary).then(function(data, wordData){						
 
 				if(data.data.success){
 					//lost scope of 'this' in here, hence use of var app
@@ -281,14 +218,27 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsLista) {
 
 	//no need for 'valid' like in app.addSynonym() as 'valid' is not initialised until ng-submit executes.
 	//the client will send undefined if the regex fails	which is why we check that wordData != undefined
-	app.findSynonym = function(wordData){
+	app.findSynonym = function(query, wordData, Word, findSynonym){
 
 		app.loading = true;
+		console.log("pre POST word data is ::" + app.wordData);		
+		console.log("trying to find synonyms");
 
+		var parammm = {baseWord: 'dog'};
+		// $state.go('search', {query: 'do'}, {notify:false});
+// $state.go('search', {query: 'do'}, {notify:false}).then(function(data){
+// 	console.log("hi hi hi");
+// 	console.log("hi hi hi ::" + JSON.stringify(data));
+		
 		//our app will not break without this check for undefined, but it's good practice
 		if(app.wordData != undefined){
-			//call our factory service
-			Word.findSynonym(app.wordData).then(function(data){
+		// 	//call our factory service
+
+		// $state.go('search', {query: query});
+		//console.log(Word);
+
+			// Word.findSynonym(app.wordData).then(function(data){
+			$http.post('/api/word/findSynonym', app.wordData).then(function(data){
 				if(data.data.success){
 
 					// app.loading = false;
@@ -323,6 +273,11 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsLista) {
 			app.errorMsg = 'Please ensure form is filled out properly';
 		}
 	};
+	// app.synonyms = findSynonym.data.word[0].synonyms;
+	// $scope.findSynonym = findSynonym.data;
+	// $scope.findSynonym = findSynonysss.data;
+
+	// console.log(findSynonym.data);
 
 
 
@@ -335,49 +290,74 @@ routerApp.factory('Word', function($http){
         return $http.get('/api/word/listWords');
     };
 
+    wordFactory.findSynonym = function(synonymData){
+		//console.log('in thesaurusServices, data passed from Ctrl is :: %s',JSON.stringify(synonymData));
+		return $http.post('/api/word/findSynonym', synonymData);
+	};
+
+	wordFactory.addSynonym = function(synonymData){
+		//console.log('in thesaurusServices, data passed from Ctrl is :: %s',JSON.stringify(synonymData));
+		return $http.post('/api/word/addSynonym', synonymData);
+	};
+
     return wordFactory;
 });
 
-routerApp.controller('scotchController' ,function($scope, Word) {
-    
-    // , 'Word'
 
-    $scope.message = 'test';
-    console.log("yo");
-    
-    // $scope.test = Word.listWords;
+// .state('search', {        	
+//     		// url: '/thesaurus/:query',	
+//     		url: '/thesaurus/synonyms/:query',	    		
+//     		templateUrl: 'app/views/pages/thesaurus/thesaurus-synonyms.html',
+// 			controller: 'thesaurusCtrl',
+// 			controllerAs: 'thesaurus',
+// 			// params: { query	: null },
 
-    $scope.test = function(){
-        Word.listWords().then(function(data){
-            if(data.data.success){
-                
-                console.log("words is :: yes test yest");
+// 			resolve: {		            	       			
+// 			    //these examples should get us to completion
+// 			    //https://github.com/angular-ui/ui-router/wiki
 
-            }
-            else{
-                
-                console.log("words is :: no tets no");
-            }
-        });    
-    }
+// 	            findSynonysss:function($stateParams, Word, $http){
+// 	  //           	// return Word.findSynonym($stateParams.query);
+// 	  //           	return $http.post('/api/word/findSynonym', 'dog');
+// 	  				// return Word.listWords();
 
-        
-    
+// 	  				if($stateParams.query == undefined){
+// 	  					return { data: '' };
+// 	  				}
 
-   
-    $scope.scotches = [
-        {
-            name: 'Macallan 12',
-            price: 50
-        },
-        {
-            name: 'Chivas Regal Royal Salute',
-            price: 10000
-        },
-        {
-            name: 'Glenfiddich 1937',
-            price: 20000
-        }
-    ];
-    
-});
+// 	  				var dog = { baseWord:'dog' };
+
+// 	            		// Word.findSynonym(app.wordData).then(function(data){
+// 	            		Word.findSynonym(dog).then(function(data){	            			
+// 								if(data.data.success){
+
+// 									// app.loading = false;
+// 									//timeout only used for demonstration, as response may be too quick to see spinner animation on high-speed connection
+
+// 									// $timeout(function(){
+// 									// 	 app.loading = false;
+// 									// }, 500);
+
+// 									console.log("the FINDSYNONYMS SYNOYNMS ARE :: %S",data.data.word[0].synonyms)
+									
+// 									//we are returned an array from the database, so even though we will usually get only one index,
+// 									//we must specifiy the zeroth index to access our synonyms
+// 									console.log(JSON.stringify(data.data.word[0].synonyms));
+
+// 									// app.synonymMsg = data.data.message;
+// 									// app.reminderMsg = data.data.reminder;
+
+// 									// app.synonyms = data.data.word[0].synonyms;
+// 									return data.data.word[0].synonyms;
+
+// 								}
+// 								else{
+// 									app.loading = false;
+// 									app.synonyms = false;
+// 									app.synonymMsg = data.data.message;
+
+// 								}
+// 							});	            	
+// 	            }
+// 	        }		        
+// 		})

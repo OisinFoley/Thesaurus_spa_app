@@ -149,6 +149,9 @@ module.exports = function(router){
 
 	router.post('/word/findSynonym', function(req,res){
 		console.log("we've hit /word/findSynonym route, searching for words...");
+		console.log(req.body);
+		console.log(req.body.baseWord);
+
 
 		Word.find({ baseWord : req.body.baseWord }).select(' baseWord synonyms').exec(function(err, baseWords){
 			if(err) throw err;
@@ -158,7 +161,7 @@ module.exports = function(router){
 
 				try{
 					res.json({ success:true, message: "We found the following synonyms: ", reminder:"Found synonyms for this word, look below", word:baseWords});
-					console.log("Words found and should have been returned to client ...");
+					console.log("Words found and should have been returned to client ... " + baseWords);
 				} catch(err){
 					res.json({ success:false, message: "No synonyms found: " });
 					console.log("There was the following error : %s", err);
@@ -183,7 +186,7 @@ module.exports = function(router){
 				try{
 					// setTimeout(function(){ console.log("huhuhuhuh") }, 3000);
 					console.log("hi2");
-					console.log(words);
+					// console.log(words);
 
 					res.json({ success:true, message: "We found the following list of words: ", words:words});
 					// console.log("Words found and should have been returned to client ...");
