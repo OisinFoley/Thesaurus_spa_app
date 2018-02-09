@@ -36,7 +36,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 			//and then when typing occurs, make a reload of that state with the async call we desire..	
 
 			resolve: {		            
-	            wordsList: function(Word) {		            	
+	            synonymsWordsList: function(Word) {		            	
 	            	return Word.listWords();	            	
 	            }
 	            
@@ -86,10 +86,14 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 
 routerApp.directive('thesaurusForm', function() {
 	return{
-		templateUrl: 'app/components/thesaurus-form.html'//,
-      	// bindings: { name: '@' }	
-      	// controller: 'thesaurusCtrl',
-      	// controllerAs: 'thesaurus'
+		templateUrl: 'app/components/thesaurus-form.html'
+	}
+      
+});
+
+routerApp.directive('thesaurusAllWords', function() {
+	return{
+		templateUrl: 'app/components/thesaurus-list-all-contents.html'      	
 	}
       
 });
@@ -232,7 +236,7 @@ routerApp.controller('thesaurusAntonymsCtrl' ,function($scope, Word, wordsList, 
 	};
 });
 
-routerApp.controller('thesaurusSynonymsCtrl' ,function($scope, Word, wordsList, $state, $http,$timeout) {
+routerApp.controller('thesaurusSynonymsCtrl' ,function($scope, Word, synonymsWordsList, $state, $http,$timeout) {
 
 	var app = this;
 
@@ -365,7 +369,7 @@ routerApp.controller('thesaurusSynonymsCtrl' ,function($scope, Word, wordsList, 
 });
 
 // angular.module('thesaurusController',['thesaurusServices'])
-routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsList, $state, $http,$timeout) {
+routerApp.controller('thesaurusCtrl' ,function($scope, Word, synonymsWordsList, $state, $http,$timeout) {
 
 // .controller('thesaurusCtrl',function($scope, Word, $timeout){
 
@@ -398,7 +402,8 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, wordsList, $state, 
 				}
 			});
 	}
-	$scope.wordsList = wordsList.data.words;
+	
+	$scope.wordsList = synonymsWordsList.data.words;
 	console.log($scope.wordsList);
 
 });

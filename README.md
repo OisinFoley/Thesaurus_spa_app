@@ -1,6 +1,6 @@
 # Web app acting as a thesaurus, allowing users to search for words, as well as add their own.
 
-#### README file 1.4.0
+#### README file 1.4.2
 
 
 To run:
@@ -27,6 +27,14 @@ Bugs:
 ---
 
 Added in previous commits::
+
+(1.4.2)
+- Changing name of resolved variable on loading of state from wordsList to synonymsWordList, to prepare for implementation of antonym functionality.
+
+(1.4.1)
+
+- Fixing bug whereby we couldn't filter or add new synonyms after migrating from ngRoute to ui-router.
+- FixingMaking use of resolve and dependency-injection on loading of thesaurus-controller.
 
 (1.4.0)
 

@@ -119,24 +119,4 @@
 
 </div>
 <br><br><br><hr>
-<h5>List of all words in thesaurus:</h5>
-<!-- <div ng-init="thesaurus.loadAllWords()"> -->
-<div>
-
-	<!-- <div ng-repeat="word in thesaurus.wordsList"> -->
-	<div ng-repeat="word in wordsList">
-
-		<label>
-			{{word.baseWord}}:
-		</label>			
-			<label ng-repeat="synonym in word.synonyms">
-				&nbsp{{synonym}}	<label style="color:#ffffe5" ng-if="!$last">|</label>
-			</label>
-
-	</div>
-</div>
-<br>
-<div class="jumbotron text-center" ng-show="thesaurus.loading">
-	<h3><i class="fa fa-spinner fa-spin"></i></h3>
-	<p>Loading....</p>
-</div>
+<thesaurus-all-words></thesaurus-all-words>
