@@ -36,8 +36,12 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
 			//and then when typing occurs, make a reload of that state with the async call we desire..	
 
 			resolve: {		            
+
+	            antonymsWordsList: function(Word) {		            	
+	            	return Word.listAntonynms();	            	
+	            },
 	            synonymsWordsList: function(Word) {		            	
-	            	return Word.listWords();	            	
+	            	return Word.listSynonynms();	            	
 	            }
 	            
 	        }		        
@@ -93,7 +97,7 @@ routerApp.directive('thesaurusForm', function() {
 
 routerApp.directive('thesaurusAllWords', function() {
 	return{
-		templateUrl: 'app/components/thesaurus-list-all-contents.html'      	
+		templateUrl: 'app/components/thesaurus-all-words.html'      	
 	}
       
 });
@@ -108,7 +112,7 @@ routerApp.directive('wordsLookup', function() {
       
 });
 
-routerApp.controller('thesaurusAntonymsCtrl' ,function($scope, Word, wordsList, $state, $http,$timeout) {
+routerApp.controller('thesaurusAntonymsCtrl' ,function($scope, Word, wordsList, $state, $http, $timeout) {
 
 	var app = this;
 
@@ -236,7 +240,7 @@ routerApp.controller('thesaurusAntonymsCtrl' ,function($scope, Word, wordsList, 
 	};
 });
 
-routerApp.controller('thesaurusSynonymsCtrl' ,function($scope, Word, synonymsWordsList, $state, $http,$timeout) {
+routerApp.controller('thesaurusSynonymsCtrl' ,function($scope, Word, $state, $http,$timeout) {
 
 	var app = this;
 
@@ -369,7 +373,7 @@ routerApp.controller('thesaurusSynonymsCtrl' ,function($scope, Word, synonymsWor
 });
 
 // angular.module('thesaurusController',['thesaurusServices'])
-routerApp.controller('thesaurusCtrl' ,function($scope, Word, synonymsWordsList, $state, $http,$timeout) {
+routerApp.controller('thesaurusCtrl' ,function($scope, Word, synonymsWordsList, antonymsWordsList, $state, $http,$timeout) {
 
 // .controller('thesaurusCtrl',function($scope, Word, $timeout){
 
@@ -383,7 +387,7 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, synonymsWordsList, 
 
 			console.log("i want to load words...");
 
-			Word.listWords().then(function(data){
+			Word.listSynonynms().then(function(data){
 				if(data.data.success){
 					//lost scope of controller's 'this' keyword, hence use of var app
 					//app.loading = false;
@@ -402,8 +406,13 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, synonymsWordsList, 
 				}
 			});
 	}
+	$scope.synonyms = synonymsWordsList.data.words;
+	$scope.antonyms = antonymsWordsList.data.message;
+	console.log($state.current.name);
+	$state.current.name == 'thesaurus.antonyms'?$scope.wordsList = $scope.antonyms:$scope.wordsList = $scope.synonyms;
 	
-	$scope.wordsList = synonymsWordsList.data.words;
+	
+	//$scope.wordsList = $scope.synonyms;
 	console.log($scope.wordsList);
 
 });
@@ -411,14 +420,26 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, synonymsWordsList, 
 routerApp.factory('Word', function($http){
     var wordFactory = {};
 
-    wordFactory.listWords = function(){
-        return $http.get('/api/word/listWords');
+    wordFactory.listAntonynms = function(){
+        return $http.get('/api/word/antonyms');
     };
+
+    wordFactory.listSynonynms = function(){
+        return $http.get('/api/word/synonyms');
+    };
+    
 
     wordFactory.findSynonym = function(synonymData){
 		//console.log('in thesaurusServices, data passed from Ctrl is :: %s',JSON.stringify(synonymData));
 		return $http.post('/api/word/findSynonym', synonymData);
+		// return $http.post('/api/word/synonyms/:baseWord', synonymData);	
 	};
+
+	// wordFactory.findAntonym = function(synonymData){
+	// 	//console.log('in thesaurusServices, data passed from Ctrl is :: %s',JSON.stringify(synonymData));
+	// 	return $http.post('/api/word/findSynonym', synonymData);
+	// 	// return $http.post('/api/word/synonyms/:baseWord', synonymData);	
+	// };
 
 	wordFactory.addSynonym = function(synonymData){
 		//console.log('in thesaurusServices, data passed from Ctrl is :: %s',JSON.stringify(synonymData));
