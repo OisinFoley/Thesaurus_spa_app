@@ -411,6 +411,16 @@ routerApp.controller('thesaurusCtrl' ,function($scope, Word, synonymsWordsList, 
 	console.log($state.current.name);
 	$state.current.name == 'thesaurus.antonyms'?$scope.wordsList = $scope.antonyms:$scope.wordsList = $scope.synonyms;
 	
+	//thesaurus-form.html has been changed so that it can be reused for both word-search types.
+		//the bottom will need to be re-written later
+	//go to thesaurus-all-words.html, you will need to change it
+	//might need to do
+
+			//ng-if word.antonyms and ng-if word.synonyms to handle when to handle the ng-repeat
+	/*		<label ng-repeat="synonym in word.synonyms">
+				&nbsp{{synonym}}	<label style="color:#ffffe5" ng-if="!$last">|</label>
+			</label>
+	*/
 	
 	//$scope.wordsList = $scope.synonyms;
 	console.log($scope.wordsList);

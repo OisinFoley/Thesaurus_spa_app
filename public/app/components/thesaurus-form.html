@@ -1,4 +1,4 @@
-<form name="wordForm" ng-submit="thesaurus.addSynonym(wordData, wordForm.$valid);" novalidate>
+<form name="wordForm" ng-submit="thesaurus.addWord(wordData, wordForm.$valid);" novalidate>
 
 	<br>
 	<!-- BASE WORD VALIDATION SETUP -->
@@ -10,7 +10,7 @@
 
 		<div style="position: relative;" class="inner-addon right-addon">
 			<i ng-show="thesaurus.loading" style="right: 0px;position: absolute; padding: 10px; pointer-events: none;" class="fa fa-spinner fa-spin"></i>
-			<input style="padding-right: 30px;" class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-change="thesaurus.findSynonym()" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required>
+			<input style="padding-right: 30px;" class="form-control" type="text" name="baseWord" placeholder="Enter base word to search for" ng-model="thesaurus.wordData.baseWord" ng-change="thesaurus.findWord()" ng-pattern="/^(([\sa-zA-Z'&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkBaseWord(wordData)" required>
 
 			<!-- <input style="padding-right: 30px;" type="text" class="form-control" placeholder="Search" /> -->
 		</div>
@@ -36,24 +36,24 @@
 	<!-- container for toggling 'anontyms' nested view
 	<div ui-view></div> -->
 
-	<!-- SYNONYM WORD VALIDATION SETUP -->
-	<div ng-class="{ 'has-success':(wordForm.synonym.$valid && !wordForm.synonym.$pristine && !thesaurus.synonymInvalid), 'has-error':(!wordForm.synonym.$valid && !wordForm.synonym.$pristine) || (!wordForm.synonym.$valid && wordForm.$submitted) ||  thesaurus.synonymInvalid }">
+	<!--  WORD VALIDATION SETUP -->
+	<div ng-class="{ 'has-success':(wordForm.word.$valid && !wordForm.word.$pristine && !thesaurus.wordInvalid), 'has-error':(!wordForm.word.$valid && !wordForm.word.$pristine) || (!wordForm.word.$valid && wordForm.$submitted) ||  thesaurus.wordInvalid }">
 		<label ng-class="{'formLabels':wordForm}">Base word:</label>
 
 		<!-- https://en.oxforddictionaries.com/explore/what-is-the-longest-english-word -->
-		<input class="form-control" type="text" name="synonym" placeholder="Separate multiples with a comma ' , '" ng-model="thesaurus.wordData.synonym" ng-pattern="/^(([\sa-zA-Z',&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkSynonym(wordData)" required>
+		<input class="form-control" type="text" name="word" placeholder="Separate multiples with a comma ' , '" ng-model="thesaurus.wordData.word" ng-pattern="/^(([\sa-zA-Z',&])+)$/" ng-minlength="2" ng-maxlength="45" ng-blur="thesaurus.checkWord(wordData)" required>
 
-		<p  ng-show="(!wordForm.synonym.$pristine && wordForm.synonym.$error.required) || (wordForm.$submitted && wordForm.synonym.$error.required)" ng-class="{'errorMsg':wordForm}">Synonym word required
+		<p  ng-show="(!wordForm.word.$pristine && wordForm.word.$error.required) || (wordForm.$submitted && wordForm.word.$error.required)" ng-class="{'errorMsg':wordForm}">Word required
 		</p>
 
-		<span class="glyphicon glyphicon-refresh glyphicon-spin" ng-show="thesaurus.checkingSynonym"></span>
+		<span class="glyphicon glyphicon-refresh glyphicon-spin" ng-show="thesaurus.checkingWord"></span>
 
 		<p ng-class="{'serverMsg': wordForm}"  ng-show="thesaurus.reminderMsg && !wordForm.baseWord.$error.required && wordForm.baseWord.$valid ">
 		{{ thesaurus.reminderMsg }}
 		</p>
 
 
-		<ul ng-show="(!wordForm.synonym.$pristine && wordForm.synonym.$error.pattern) || (!wordForm.synonym.$pristine && wordForm.synonym.$error.minlength) || (!wordForm.synonym.$pristine && wordForm.synonym.$error.maxlength)" ng-class="{'errorMsg':wordForm}">
+		<ul ng-show="(!wordForm.word.$pristine && wordForm.word.$error.pattern) || (!wordForm.word.$pristine && wordForm.word.$error.minlength) || (!wordForm.word.$pristine && wordForm.word.$error.maxlength)" ng-class="{'errorMsg':wordForm}">
 			<li>Only letters, apostrophe, separator(:) and ampersand (&) allowed.</li>
 			<li>Must not have any special characters.</li>
 			<li>Must be between 2 and 45 characters long.</li>
@@ -108,12 +108,15 @@
 			{{ thesaurus.synonymMsg }}
 	</p>
 
-	<p ng-show="thesaurus.synonymMsg">
+	<!-- <p ng-show="thesaurus.synonymMsg">
 		<div ng-repeat="synonym in thesaurus.synonyms">
 			{{ synonym }}
 		</div>
 
-	</p>
+	</p> -->
+		<div ng-repeat="word in thesaurus.returnedWords">
+			{{ word }}
+		</div>	
 	<div ui-view></div>
 
 
